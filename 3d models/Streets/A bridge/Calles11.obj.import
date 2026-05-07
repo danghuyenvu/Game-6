@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b27yuy8nae8ir"
+path="res://.godot/imported/Calles11.obj-bfec6ce70c1e031ce1cf74a5c4697588.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Calles11.obj-bfec6ce70c1e031ce1cf74a5c4697588.mesh"]
+
+source_file="res://3d models/Streets/A bridge/Calles11.obj"
+dest_files=["res://.godot/imported/Calles11.obj-bfec6ce70c1e031ce1cf74a5c4697588.mesh", "res://.godot/imported/Calles11.obj-bfec6ce70c1e031ce1cf74a5c4697588.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

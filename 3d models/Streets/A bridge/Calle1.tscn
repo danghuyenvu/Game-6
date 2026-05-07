@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b12yb285miqux"]
+
+[ext_resource type="ArrayMesh" uid="uid://7dbisb1ubwfb" path="res://3d models/Streets/A bridge/Calle 1.obj" id="1_7wfy1"]
+[ext_resource type="Material" uid="uid://rhwwnu73v4og" path="res://3d.tres" id="2_ojj7e"]
+
+[node name="Node3D" type="Node3D" unique_id=284106806]
+
+[node name="Calle1" type="MeshInstance3D" parent="." unique_id=418882870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.113996, 0, -23.490553)
+mesh = ExtResource("1_7wfy1")
+surface_material_override/0 = ExtResource("2_ojj7e")
