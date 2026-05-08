@@ -1,4 +1,4 @@
-[gd_scene load_steps=162 format=3 uid="uid://doaikgv7qktff"]
+[gd_scene load_steps=163 format=3 uid="uid://doaikgv7qktff"]
 
 [ext_resource type="PackedScene" uid="uid://qr8qklyxdv62" path="res://ground/ground_1.glb" id="1_6skux"]
 [ext_resource type="Texture2D" uid="uid://bpci128crlocf" path="res://Sky/ChatGPT Image May 8, 2026, 01_06_52 AM.png" id="1_n5say"]
@@ -141,6 +141,7 @@
 [ext_resource type="PackedScene" uid="uid://b8c3e82evo1ow" path="res://3d models/Misc/metal_barricade.tscn" id="139_ttpp1"]
 [ext_resource type="PackedScene" uid="uid://dp6omywktv71o" path="res://3d models/Misc/metal_board.tscn" id="140_vibqx"]
 [ext_resource type="PackedScene" uid="uid://7ueilmsrnqxl" path="res://3d models/Misc/metal_board_vert.tscn" id="141_go07c"]
+[ext_resource type="PackedScene" uid="uid://dplwvyswbkstq" path="res://3d models/Misc/Ladder.fbx" id="142_8rp7r"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ne152"]
 panorama = ExtResource("1_n5say")
@@ -14890,3 +14891,9 @@ skeleton = NodePath("../GROUND/ground_planks19")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HouseFloor9/StaticBody3D"]
 shape = SubResource("BoxShape3D_i136x")
+
+[node name="Ladder" parent="." instance=ExtResource("142_8rp7r")]
+transform = Transform3D(-1.3113417e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.3113417e-08, 0, 1, 3)
+
+[node name="Ladder2" parent="." instance=ExtResource("142_8rp7r")]
+transform = Transform3D(-1.3113417e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.3113417e-08, 0, 3, 1)
