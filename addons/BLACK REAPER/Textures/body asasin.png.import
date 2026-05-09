@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnpggmrkncn0y"
-path.s3tc="res://.godot/imported/body asasin.png-71a33a373eec50ab59a232aef655df9e.s3tc.ctex"
+path.s3tc="res://.godot/imported/body asasin.png-a78a3bae88ef9d9d9ddff0248fcd947d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/BLACK REAPER/textures/body asasin.png"
-dest_files=["res://.godot/imported/body asasin.png-71a33a373eec50ab59a232aef655df9e.s3tc.ctex"]
+source_file="res://addons/BLACK REAPER/Textures/body asasin.png"
+dest_files=["res://.godot/imported/body asasin.png-a78a3bae88ef9d9d9ddff0248fcd947d.s3tc.ctex"]
 
 [params]
 
