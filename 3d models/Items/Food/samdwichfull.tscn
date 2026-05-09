@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://ymgu8erkql6v"]
+[gd_scene format=4 uid="uid://ymgu8erkql6v"]
 
-[ext_resource type="Material" uid="uid://bkblq1omlai4l" path="res://3d.tres" id="1_rj7in"]
+[ext_resource type="Material" uid="uid://rhwwnu73v4og" path="res://3d.tres" id="1_rj7in"]
+[ext_resource type="Script" uid="uid://cper71uxwyfyb" path="res://3d models/Items/Food/bottle.gd" id="1_s6pxe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_437cs"]
 
@@ -34,9 +35,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_c0vid")
 
-[node name="Samdwichfull" type="Node3D"]
+[node name="Samdwichfull" type="Node3D" unique_id=763970655]
+script = ExtResource("1_s6pxe")
 
-[node name="Cylinder_007" type="MeshInstance3D" parent="."]
+[node name="Cylinder_007" type="MeshInstance3D" parent="." unique_id=612004231]
 transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3e5sc")
 skeleton = NodePath("")

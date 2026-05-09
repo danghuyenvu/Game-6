@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://dq48cmj4i5aq1"]
+[gd_scene format=4 uid="uid://dq48cmj4i5aq1"]
 
-[ext_resource type="Material" uid="uid://bkblq1omlai4l" path="res://3d.tres" id="1_buuub"]
+[ext_resource type="Material" uid="uid://rhwwnu73v4og" path="res://3d.tres" id="1_buuub"]
+[ext_resource type="Script" uid="uid://cper71uxwyfyb" path="res://3d models/Items/Food/bottle.gd" id="1_s37ww"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2tch"]
 
@@ -34,9 +35,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ha64w")
 
-[node name="Burger" type="Node3D"]
+[node name="Burger" type="Node3D" unique_id=243927169]
+script = ExtResource("1_s37ww")
 
-[node name="Cylinder_008" type="MeshInstance3D" parent="."]
+[node name="Cylinder_008" type="MeshInstance3D" parent="." unique_id=1208441116]
 transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ft5dh")
 skeleton = NodePath("")
