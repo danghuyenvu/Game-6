@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cesyfpxjulv02"
-path.s3tc="res://.godot/imported/hombreras.png-60b7fdbcdf353f63f3fc4d94c8ac36db.s3tc.ctex"
+path.s3tc="res://.godot/imported/hombreras.png-88604cfe6b91a0ca4b40ed3d3633adcf.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/Blood Juggernaut/textures/hombreras.png"
-dest_files=["res://.godot/imported/hombreras.png-60b7fdbcdf353f63f3fc4d94c8ac36db.s3tc.ctex"]
+source_file="res://addons/Blood Juggernaut/Textures/hombreras.png"
+dest_files=["res://.godot/imported/hombreras.png-88604cfe6b91a0ca4b40ed3d3633adcf.s3tc.ctex"]
 
 [params]
 

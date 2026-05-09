@@ -43,6 +43,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vb0dg")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_xkabi"]
+radius = 0.25044915
+
 [node name="Ketchup" type="Node3D" unique_id=216330002]
 script = ExtResource("1_xkabi")
 
@@ -51,3 +54,8 @@ transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0,
 mesh = SubResource("ArrayMesh_hl7u7")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_dpyr5")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=984770189]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1086108871]
+shape = SubResource("SphereShape3D_xkabi")

@@ -20,6 +20,8 @@ func _process(delta: float):
 	pos.y = base_y + sin(Time.get_ticks_msec() / 1000.0 * levitate_speed) * levitate_height
 	global_transform.origin = pos
 
-func _on_body_entered(body):
+func _on_area_body_entered(body):
 	if body.is_in_group("player"):
 		queue_free()  # simulate grab/collect
+		# perform some grabbing logic here
+		

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpdq23tb45dad"
-path.s3tc="res://.godot/imported/pantalones asasin.png-a4e44985e97be9f930be70f3ffb2bd42.s3tc.ctex"
+path.s3tc="res://.godot/imported/pantalones asasin.png-f5569db361ff6141fff5bd3078e383c2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/BLACK REAPER/textures/pantalones asasin.png"
-dest_files=["res://.godot/imported/pantalones asasin.png-a4e44985e97be9f930be70f3ffb2bd42.s3tc.ctex"]
+source_file="res://addons/BLACK REAPER/Textures/pantalones asasin.png"
+dest_files=["res://.godot/imported/pantalones asasin.png-f5569db361ff6141fff5bd3078e383c2.s3tc.ctex"]
 
 [params]
 

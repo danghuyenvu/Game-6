@@ -35,6 +35,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_o3s86")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_pk3gc"]
+radius = 0.25143063
+
 [node name="Mayo" type="Node3D" unique_id=1315121290]
 script = ExtResource("1_pk3gc")
 
@@ -43,3 +46,8 @@ transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0,
 mesh = SubResource("ArrayMesh_1v54h")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_2hujq")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1418258758]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=242338504]
+shape = SubResource("SphereShape3D_pk3gc")

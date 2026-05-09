@@ -35,6 +35,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ha64w")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_s37ww"]
+radius = 0.25925392
+
 [node name="Burger" type="Node3D" unique_id=243927169]
 script = ExtResource("1_s37ww")
 
@@ -43,3 +46,8 @@ transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0,
 mesh = SubResource("ArrayMesh_ft5dh")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_buuub")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=279023556]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1450611226]
+shape = SubResource("SphereShape3D_s37ww")

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0m4frc23eucx"
-path.s3tc="res://.godot/imported/low casco dolor.png-b849d9a6167a51efdc94380a11c5bf22.s3tc.ctex"
+path.s3tc="res://.godot/imported/low casco dolor.png-b5550cba6136aebe8e2f6d7c6cbf2da5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/Blood Juggernaut/textures/low casco dolor.png"
-dest_files=["res://.godot/imported/low casco dolor.png-b849d9a6167a51efdc94380a11c5bf22.s3tc.ctex"]
+source_file="res://addons/Blood Juggernaut/Textures/low casco dolor.png"
+dest_files=["res://.godot/imported/low casco dolor.png-b5550cba6136aebe8e2f6d7c6cbf2da5.s3tc.ctex"]
 
 [params]
 

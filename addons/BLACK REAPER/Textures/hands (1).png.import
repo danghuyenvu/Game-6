@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnc3qr1wl0iws"
-path.s3tc="res://.godot/imported/hands (1).png-e24ebf5e0656095d3cba55c4ec59f200.s3tc.ctex"
+path.s3tc="res://.godot/imported/hands (1).png-6c574507188a747d840a38f80f13c0e7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/BLACK REAPER/textures/hands (1).png"
-dest_files=["res://.godot/imported/hands (1).png-e24ebf5e0656095d3cba55c4ec59f200.s3tc.ctex"]
+source_file="res://addons/BLACK REAPER/Textures/hands (1).png"
+dest_files=["res://.godot/imported/hands (1).png-6c574507188a747d840a38f80f13c0e7.s3tc.ctex"]
 
 [params]
 

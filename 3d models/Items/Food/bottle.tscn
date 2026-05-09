@@ -35,6 +35,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tng2h")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_rp3vb"]
+radius = 0.25245488
+
 [node name="Bottle" type="Node3D" unique_id=1656882789]
 script = ExtResource("1_rp3vb")
 
@@ -43,3 +46,8 @@ transform = Transform3D(98.480774, -17.364819, 6.2860476e-05, 17.364819, 98.4807
 mesh = SubResource("ArrayMesh_qpyx4")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_aj4ht")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1048872390]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=953628429]
+shape = SubResource("SphereShape3D_rp3vb")
