@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://h88j2jk78axx"]
+
+[ext_resource type="PackedScene" uid="uid://b0itbl47rj31m" path="res://addons/Boss enemy asset/Boss.fbx" id="1_oev1g"]
+[ext_resource type="Texture2D" uid="uid://67l1xa3ka3gy" path="res://addons/Boss enemy asset/Gun texture.png" id="2_gql16"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swefv"]
+albedo_texture = ExtResource("2_gql16")
+
+[node name="Boss" unique_id=789965832 instance=ExtResource("1_oev1g")]
+
+[node name="Skeleton3D" parent="Blood master anim" parent_id_path=PackedInt32Array(59158383) index="0" unique_id=363766544]
+bones/0/position = Vector3(-0.03262818, 4.9054966, 0.17491102)
+bones/0/rotation = Quaternion(-0.001685706, 0.00028697215, -0.0036223303, 0.999992)
+bones/1/rotation = Quaternion(0.27819464, 0.00029274006, -0.0022366454, 0.9605222)
+bones/2/rotation = Quaternion(0.17470038, 0.004862515, 0.0074124862, 0.9845818)
+bones/3/rotation = Quaternion(0.10968754, 0.0044715605, 0.007462839, 0.99392813)
+bones/4/rotation = Quaternion(-0.11142251, -0.007814888, 0.0019944543, 0.99374044)
+bones/5/rotation = Quaternion(-0.1887057, 0.023675308, -0.01743572, 0.9815935)
+bones/8/rotation = Quaternion(0.67810935, 0.48193392, -0.33509102, 0.44229126)
+bones/9/rotation = Quaternion(0.05206339, -0.19004963, 0.2890455, 0.93681556)
+bones/10/rotation = Quaternion(0.015014202, 0.062126223, 0.4605656, 0.8853216)
+bones/13/rotation = Quaternion(0.66554695, -0.48364013, 0.35955483, 0.44029522)
+bones/14/rotation = Quaternion(0.14340825, 0.17283139, -0.24707584, 0.94261175)
+bones/15/rotation = Quaternion(-0.041277073, 0.11279316, -0.5552146, 0.8229889)
+bones/18/rotation = Quaternion(0.08728914, 0.32071576, 0.9115491, -0.24207498)
+bones/19/rotation = Quaternion(-0.5383166, 0.024106631, -0.11305571, 0.83477694)
+bones/20/rotation = Quaternion(0.42418498, -0.5162969, 0.2898871, 0.6851789)
+bones/21/rotation = Quaternion(0.31505382, 0.0029225165, -0.11406668, 0.94218975)
+bones/24/rotation = Quaternion(-0.14570102, 0.34931806, 0.90373963, 0.20000693)
+bones/25/rotation = Quaternion(-0.5985083, 0.00045358762, -0.018534407, 0.8009021)
+bones/26/rotation = Quaternion(0.39408, 0.47273588, -0.25900543, 0.7444045)
+bones/27/rotation = Quaternion(0.22315899, 0.11187497, 0.10768869, 0.96233433)
+
+[node name="Cube" parent="Blood master anim/Skeleton3D" index="0" unique_id=706355114]
+material_override = SubResource("StandardMaterial3D_swefv")

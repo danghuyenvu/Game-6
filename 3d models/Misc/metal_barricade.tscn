@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://b8c3e82evo1ow"]
+[gd_scene format=4 uid="uid://b8c3e82evo1ow"]
 
 [ext_resource type="Texture2D" uid="uid://dmgl7vyb5i2rh" path="res://3d models/Misc/wall_concrete_metal_post-apocalyptic_texture.png" id="1_fxfac"]
 
