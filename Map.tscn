@@ -15475,3 +15475,51 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 41, 
 
 [node name="wall_concrete_metal71" parent="." instance=ExtResource("139_ttpp1")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 42, 0, 34)
+
+[node name="ground_planks2" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -35)
+
+[node name="ground_planks3" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -36)
+
+[node name="ground_planks4" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -31)
+
+[node name="ground_planks5" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -31)
+
+[node name="ground_planks6" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -37)
+
+[node name="ground_planks7" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -32)
+
+[node name="ground_planks8" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -37)
+
+[node name="ground_planks9" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 35)
+
+[node name="ground_planks10" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 36)
+
+[node name="ground_planks11" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 34)
+
+[node name="ground_planks12" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 37)
+
+[node name="ground_planks13" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 42)
+
+[node name="ground_planks14" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 39)
+
+[node name="ground_planks15" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0, -10)
+
+[node name="ground_planks16" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -11)
+
+[node name="ground_planks17" parent="." instance=ExtResource("85_hmuwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 0, -8)
