@@ -36,10 +36,11 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_rhs2s")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0eka0"]
-radius = 0.2526009
+radius = 1.062721
 
 [node name="Icecream" type="Node3D" unique_id=1113537017]
 script = ExtResource("1_0eka0")
+item_type = "icecream"
 
 [node name="Sphere_017" type="MeshInstance3D" parent="." unique_id=199257796]
 transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0, 0, 0)
@@ -51,3 +52,10 @@ surface_material_override/0 = ExtResource("1_aqq5h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=247630449]
 shape = SubResource("SphereShape3D_0eka0")
+
+[node name="PromptLabel3D" type="Label3D" parent="." unique_id=517181030]
+offset = Vector2(0, 100)
+text = "E"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

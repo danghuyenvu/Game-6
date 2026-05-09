@@ -36,10 +36,11 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tng2h")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rp3vb"]
-radius = 0.25245488
+radius = 1.0415137
 
 [node name="Bottle" type="Node3D" unique_id=1656882789]
 script = ExtResource("1_rp3vb")
+item_type = "bottle"
 
 [node name="Cylinder_011_Cylinder_016" type="MeshInstance3D" parent="." unique_id=992958526]
 transform = Transform3D(98.480774, -17.364819, 6.2860476e-05, 17.364819, 98.480774, -0.00035649943, 2.842171e-12, 0.000361999, 100, 0, 0, 0)
@@ -51,3 +52,10 @@ surface_material_override/0 = ExtResource("1_aj4ht")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=953628429]
 shape = SubResource("SphereShape3D_rp3vb")
+
+[node name="PromptLabel3D" type="Label3D" parent="." unique_id=661135814]
+offset = Vector2(0, 100)
+text = "E"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

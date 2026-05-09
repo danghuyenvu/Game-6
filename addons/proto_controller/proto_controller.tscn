@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://dnmmttkhkxeys" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="PackedScene" uid="uid://c235gnqq31f0t" path="res://AWP.tscn" id="2_wr06p"]
@@ -14,31 +14,31 @@ height = 6.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2uji"]
 height = 6.0
 
-[node name="ProtoController" type="CharacterBody3D"]
+[node name="ProtoController" type="CharacterBody3D" unique_id=1240680387]
 script = ExtResource("1_ucva2")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=301819646]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5305128, 0)
 material_override = SubResource("StandardMaterial3D_iof21")
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_ucva2")
 
-[node name="Collider" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=1624013216]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.54895914, 0)
 shape = SubResource("CapsuleShape3D_g2uji")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1909163339]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0362793, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1507137400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
-[node name="AWP" parent="Head/Camera3D" instance=ExtResource("2_wr06p")]
+[node name="AWP" parent="Head/Camera3D" unique_id=1511703171 instance=ExtResource("2_wr06p")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.14922845, -0.32439613, -0.4668606)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1200111532]
 
-[node name="Crosshair" type="Control" parent="CanvasLayer"]
+[node name="Crosshair" type="Control" parent="CanvasLayer" unique_id=1887142957]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,7 +54,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_5hfox")
 
-[node name="Top" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Top" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1338230899]
 custom_minimum_size = Vector2(2, 10)
 layout_mode = 1
 anchors_preset = 8
@@ -69,7 +69,7 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Left" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Left" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1932890072]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -83,7 +83,7 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Right" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Right" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=79607410]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -97,7 +97,7 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Bottom" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Bottom" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1165716235]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -37,10 +37,11 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_va1bo")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vj0tl"]
-radius = 0.25139204
+radius = 1.0757225
 
 [node name="Sausage" type="Node3D" unique_id=715981003]
 script = ExtResource("1_vj0tl")
+item_type = "sausage"
 
 [node name="Cylinder_007_Cylinder_001" type="MeshInstance3D" parent="." unique_id=597567836]
 transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0, 0, 0)
@@ -52,3 +53,10 @@ surface_material_override/0 = ExtResource("1_oy165")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=463749162]
 shape = SubResource("SphereShape3D_vj0tl")
+
+[node name="PromptLabel3D" type="Label3D" parent="." unique_id=1511395948]
+offset = Vector2(0, 100)
+text = "E"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

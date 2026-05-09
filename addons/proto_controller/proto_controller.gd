@@ -55,10 +55,18 @@ var freeflying : bool = false
 @onready var gun = $Head/Camera3D/AWP
 @onready var crosshair = $CanvasLayer/Crosshair
 
+var nearby_items: Array = []
+var nearby_shop: Node = null
+
 func _ready() -> void:
 	check_input_mappings()
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
+	
+func grab_item(item) -> void:
+	item.apply_effect(self)
+	item.queue_free()
+	print("Grabbed", item.item_type)
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
@@ -74,6 +82,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		gun.shoot()
 	if Input.is_action_just_pressed("reload"):
 		gun.reload()
+		
+	if Input.is_action_just_pressed("interact"):
+		if nearby_shop != null:
+			nearby_shop.open_menu()
+		else:
+			# interact with nearby shops
+			if nearby_items.size() > 0:
+				var item = nearby_items.pop_front()
+				grab_item(item)
 	
 	# Toggle freefly mode
 	if can_freefly and Input.is_action_just_pressed(input_freefly):

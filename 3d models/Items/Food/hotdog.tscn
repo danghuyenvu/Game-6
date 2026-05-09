@@ -38,10 +38,11 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2tktf")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wry46"]
-radius = 0.2513628
+radius = 1.0468569
 
 [node name="Hotdog" type="Node3D" unique_id=251915563]
 script = ExtResource("1_wry46")
+item_type = "hotdog"
 
 [node name="Cylinder_008_Cylinder_000" type="MeshInstance3D" parent="." unique_id=785305138]
 transform = Transform3D(100, 0, 0, 0, 100, -0.000361999, 0, 0.000361999, 100, 0, 0, 0)
@@ -53,3 +54,10 @@ surface_material_override/0 = ExtResource("1_jqlps")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1767236382]
 shape = SubResource("SphereShape3D_wry46")
+
+[node name="PromptLabel3D" type="Label3D" parent="." unique_id=1858653469]
+offset = Vector2(0, 100)
+text = "E"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
