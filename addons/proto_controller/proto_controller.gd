@@ -12,7 +12,7 @@ extends CharacterBody3D
 ## Can we press to jump?
 @export var can_jump : bool = true
 ## Can we hold to run?
-@export var can_sprint : bool = false
+@export var can_sprint : bool = true
 ## Can we press to enter freefly mode (noclip)?
 @export var can_freefly : bool = false
 
@@ -20,11 +20,11 @@ extends CharacterBody3D
 ## Look around rotation speed.
 @export var look_speed : float = 0.002
 ## Normal speed.
-@export var base_speed : float = 7.0
+@export var base_speed : float = 5.0
 ## Speed of jump.
-@export var jump_velocity : float = 4.5
+@export var jump_velocity : float = 5.0
 ## How fast do we run?
-@export var sprint_speed : float = 10.0
+@export var sprint_speed : float = 7.5
 ## How fast do we freefly?
 @export var freefly_speed : float = 25.0
 
@@ -52,6 +52,8 @@ var freeflying : bool = false
 ## IMPORTANT REFERENCES
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
+@onready var gun = $Head/Camera3D/AWP
+@onready var crosshair = $CanvasLayer/Crosshair
 
 func _ready() -> void:
 	check_input_mappings()
@@ -68,6 +70,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Look around
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
+	if Input.is_action_just_pressed("shoot"):
+		gun.shoot()
+	if Input.is_action_just_pressed("reload"):
+		gun.reload()
 	
 	# Toggle freefly mode
 	if can_freefly and Input.is_action_just_pressed(input_freefly):
@@ -114,6 +120,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = 0
 		velocity.y = 0
+	
+	crosshair.set_moving(velocity.length() > 0.1)
 	
 	# Use velocity to actually move
 	move_and_slide()

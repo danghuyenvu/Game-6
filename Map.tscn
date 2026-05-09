@@ -13856,7 +13856,8 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -44.
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 22.147682, 0.4205818, 47.266903)
 
 [node name="ProtoController" parent="." instance=ExtResource("128_iepg8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 8.070713, 48.154785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3527784, 0.10749346, 3.1008406)
+slide_on_ceiling = false
 
 [node name="StreetLights" type="Node3D" parent="."]
 
@@ -15235,7 +15236,7 @@ transform = Transform3D(0.08026197, 0, -0.05964911, 0, 0.1, 0, 0.05964911, 0, 0.
 transform = Transform3D(0.093532056, 0, 0.035380136, 0, 0.1, 0, -0.035380136, 0, 0.093532056, 8.719362, 1.2020873, -2.2700996)
 
 [node name="Pistol_01" parent="PistolZone" instance=ExtResource("150_wvac1")]
-transform = Transform3D(-3.0772915e-09, 0.07040022, 0.07101976, -0.09999999, -4.371138e-09, 0, 3.104372e-09, -0.07101976, 0.07040023, 9.238715, 1.2122518, -2.5401206)
+transform = Transform3D(-2.4618336e-09, 0.056320183, 0.056815814, -0.08, -3.496911e-09, -1.302701e-16, 2.483498e-09, -0.056815814, 0.056320183, 9.238715, 1.2122518, -2.5401206)
 
 [node name="Pistol_02" parent="PistolZone" instance=ExtResource("151_xx4x2")]
 transform = Transform3D(-1.9029365e-09, -0.04353411, 0.09002656, 0.1, -4.371139e-09, 0, 3.935186e-09, 0.09002656, 0.04353411, 9.120656, 1.2070132, -2.1855366)
