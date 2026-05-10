@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://c3hyvn5kfa4ur"]
+[gd_scene format=4 uid="uid://c3hyvn5kfa4ur"]
 
-[ext_resource type="Material" uid="uid://bkblq1omlai4l" path="res://3d.tres" id="1_aj4ht"]
+[ext_resource type="Material" uid="uid://rhwwnu73v4og" path="res://3d.tres" id="1_aj4ht"]
+[ext_resource type="Script" uid="uid://cper71uxwyfyb" path="res://3d models/Items/Food/bottle.gd" id="1_rp3vb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qyeg"]
 
@@ -34,10 +35,27 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tng2h")
 
-[node name="Bottle" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_rp3vb"]
+radius = 1.0415137
 
-[node name="Cylinder_011_Cylinder_016" type="MeshInstance3D" parent="."]
+[node name="Bottle" type="Node3D" unique_id=1656882789]
+script = ExtResource("1_rp3vb")
+item_type = "bottle"
+
+[node name="Cylinder_011_Cylinder_016" type="MeshInstance3D" parent="." unique_id=992958526]
 transform = Transform3D(98.480774, -17.364819, 6.2860476e-05, 17.364819, 98.480774, -0.00035649943, 2.842171e-12, 0.000361999, 100, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qpyx4")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_aj4ht")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1048872390]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=953628429]
+shape = SubResource("SphereShape3D_rp3vb")
+
+[node name="PromptLabel3D" type="Label3D" parent="." unique_id=661135814]
+offset = Vector2(0, 100)
+text = "E"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

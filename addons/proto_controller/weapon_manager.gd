@@ -92,7 +92,7 @@ func pickup_weapon(weapon: WeaponBase):
 	if weapon == null:
 		return
 
-	if weapon.weapon_id == "pistol" or weapon.weapon_id == "base":
+	if weapon.weapon_id == "pistol" or weapon.weapon_id == "base" or weapon.weapon_id == "magnum" or weapon.weapon_id == "revolver":
 		_set_secondary(weapon)
 	else:
 		_set_primary(weapon)

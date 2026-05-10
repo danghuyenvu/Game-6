@@ -46,6 +46,18 @@ var weapon_profiles = {
 		"idle_gap": 18.0,
 		"move_gap": 36.0
 	},
+	"ak": {
+		"idle_gap": 8.0,
+		"move_gap": 24.0
+	},
+	"m14": {
+		"idle_gap": 7.0,
+		"move_gap": 22.0
+	},
+	"aug": {
+		"idle_gap": 9.0,
+		"move_gap": 26.0
+	}
 }
 
 var current_weapon_id := "base"

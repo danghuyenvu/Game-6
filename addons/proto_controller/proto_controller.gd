@@ -60,6 +60,13 @@ var freeflying : bool = false
 @export var auto_jump := true
 
 var jump_held := false
+var nearby_items: Array = []
+var nearby_shop: Node = null
+
+func grab_item(item) -> void:
+	item.apply_effect(self)
+	item.queue_free()
+	print("Grabbed", item.item_type)
 
 func _ready() -> void:
 	check_input_mappings()
@@ -93,6 +100,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if Input.is_key_pressed(KEY_2):
 		weapon_manager.equip_secondary()
+		
+	if Input.is_key_pressed(KEY_E):
+		if nearby_shop != null:
+			nearby_shop.open_menu()
+		else:
+			if nearby_items.size() > 0:
+				var item = nearby_items.pop_front()
+				grab_item(item)
 	
 	# Look around
 	if mouse_captured and event is InputEventMouseMotion:

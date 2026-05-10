@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://b7jldib6deouk" path="res://DE.tscn" id="7_x436g"]
 [ext_resource type="PackedScene" uid="uid://borij8476doi8" path="res://ar2.tscn" id="8_gxq8o"]
 [ext_resource type="PackedScene" uid="uid://4nywpgl11701" path="res://Revolver.tscn" id="8_x436g"]
-[ext_resource type="PackedScene" uid="uid://qxc6hm2qgjrp" path="res://ar3.tscn" id="9_f4vau"]
 [ext_resource type="PackedScene" uid="uid://bi7intdv0w07m" path="res://Double.tscn" id="9_q1ipm"]
 [ext_resource type="PackedScene" uid="uid://cq32gcxxqc671" path="res://ass_rif1.tscn" id="14_cisnj"]
 
@@ -51,7 +50,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
 [node name="WeaponManager" type="Node3D" parent="Head/Camera3D" unique_id=1280893463 node_paths=PackedStringArray("dev_primary")]
 script = ExtResource("2_ujot4")
-dev_primary = NodePath("PrimarySlot/AUG")
+dev_primary = NodePath("PrimarySlot/M14")
 
 [node name="PrimarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=1856896201]
 
@@ -77,10 +76,6 @@ visible = false
 
 [node name="M14" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1334490612 instance=ExtResource("8_gxq8o")]
 transform = Transform3D(0.175, 0, 0, 0, 0.175, 0, 0, 0, 0.175, 0.09884837, -0.17370212, -0.031213284)
-visible = false
-
-[node name="AUG" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=661047730 instance=ExtResource("9_f4vau")]
-transform = Transform3D(-0.15, 0, -2.2649372e-08, 0, 0.15, 0, 2.2649372e-08, 0, -0.15, 0.13076097, -0.093767285, -0.13901909)
 visible = false
 
 [node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=1848784409]

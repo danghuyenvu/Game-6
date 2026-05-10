@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://qxc6hm2qgjrp"]
 
+[ext_resource type="Script" uid="uid://cpfgs0yxfcdk6" path="res://ar_3.gd" id="1_18aqi"]
 [ext_resource type="PackedScene" uid="uid://duvel28lgr4k" path="res://FBX/AssaultRifle_03.fbx" id="1_d44aw"]
 
 [sub_resource type="Animation" id="Animation_d44aw"]
@@ -60,7 +61,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_18aqi"]
 resource_name = "shoot"
 length = 0.3
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -94,6 +94,7 @@ _data = {
 }
 
 [node name="Node3D" type="Node3D" unique_id=661047730]
+script = ExtResource("1_18aqi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=337477181]
 libraries/ = SubResource("AnimationLibrary_dg7bf")

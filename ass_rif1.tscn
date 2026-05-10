@@ -1,62 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cq32gcxxqc671"]
+[gd_scene format=3 uid="uid://cq32gcxxqc671"]
 
 [ext_resource type="PackedScene" uid="uid://b7ir634oenv1j" path="res://FBX/AssaultRifle_01.fbx" id="1_a202f"]
+[ext_resource type="Script" uid="uid://pfka64us62r0" path="res://ass_rif_1.gd" id="1_n7js2"]
 
 [sub_resource type="Animation" id="Animation_noarx"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D/AssaultRifle_01:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.34104776, 0.77900493, -0.10917455)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D/AssaultRifle_01:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.08726646, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node3D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.341, 0.779, 0.84193254)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node3D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_a0tk4"]
 resource_name = "Shoot"
 length = 0.3
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -118,6 +70,7 @@ _data = {
 }
 
 [node name="Node3D" type="Node3D" unique_id=416453603]
+script = ExtResource("1_n7js2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=878459380]
 libraries/ = SubResource("AnimationLibrary_r3fl7")
@@ -126,4 +79,4 @@ libraries/ = SubResource("AnimationLibrary_r3fl7")
 transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, 0.341, 0.779, 0.84193254)
 
 [node name="AssaultRifle_01" parent="Node3D" unique_id=869242541 instance=ExtResource("1_a202f")]
-transform = Transform3D(1, 0, 0, 0, 0.9961947, -0.08715574, 0, 0.08715574, 0.9961947, 0.34104776, 0.77900493, -0.10917455)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7773123e-05, 4.9471855e-06, -0.7902342)
