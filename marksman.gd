@@ -3,22 +3,25 @@ extends WeaponBase
 @onready var anim = $AnimationPlayer
 @onready var hud = get_node("/root/Node3D/ProtoController/CanvasLayer/HUD")
 
-const MAG_SIZE := 10
-const MAX_RESERVE := 50
-const FIRE_RATE := 0.95
+const MAG_SIZE := 15
+const MAX_RESERVE := 75
+const FIRE_RATE := 0.75
 
 var current_ammo := MAG_SIZE
 var reserve_ammo := MAX_RESERVE
 
 
 func _ready():
-	weapon_id = "awp"
-	weapon_damage = 150
-	weapon_range = 1000
+	weapon_id = "marksman"
+	weapon_damage = 100
+	weapon_range = 500
 
 	call_deferred("update_hud")
 
 
+# ----------------------------
+# EQUIP / UNEQUIP
+# ----------------------------
 func equip():
 	super.equip()
 	update_hud()
@@ -28,6 +31,9 @@ func unequip():
 	super.unequip()
 
 
+# ----------------------------
+# SHOOT
+# ----------------------------
 func shoot():
 	if not equipped:
 		return
@@ -52,6 +58,9 @@ func shoot():
 	can_shoot = true
 
 
+# ----------------------------
+# RELOAD
+# ----------------------------
 func reload():
 	if reloading:
 		return
@@ -79,11 +88,16 @@ func reload():
 	update_hud()
 
 
+# ----------------------------
+# SPREAD (marksman = tighter accuracy)
+# ----------------------------
 func get_spread():
-	# AWP = extremely precise
-	return super.get_spread() * 0.2
+	return super.get_spread() * 0.5
 
 
+# ----------------------------
+# HIT LOGIC (uses 100 damage)
+# ----------------------------
 func apply_hit(result):
 	var target = result.collider
 
@@ -91,6 +105,9 @@ func apply_hit(result):
 		target.take_damage(weapon_damage)
 
 
+# ----------------------------
+# HUD
+# ----------------------------
 func update_hud():
 	if hud:
 		hud.update_ammo(current_ammo, reserve_ammo)
