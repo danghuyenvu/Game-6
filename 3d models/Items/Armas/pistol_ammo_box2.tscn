@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dmb5adf8jet2l"]
+
+[ext_resource type="PackedScene" uid="uid://5jmat2ixj5m3" path="res://FBX/PistolAmmo_Box.fbx" id="1_x71ay"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qpdlk"]
+radius = 3.1032176
+
+[node name="PistolAmmo_Box" unique_id=1239335080 instance=ExtResource("1_x71ay")]
+
+[node name="Area3D" type="Area3D" parent="." index="1" unique_id=597742003]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=54511161]
+shape = SubResource("SphereShape3D_qpdlk")

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cq32gcxxqc671"]
+[gd_scene load_steps=7 format=3 uid="uid://cq32gcxxqc671"]
 
 [ext_resource type="PackedScene" uid="uid://b7ir634oenv1j" path="res://FBX/AssaultRifle_01.fbx" id="1_a202f"]
 

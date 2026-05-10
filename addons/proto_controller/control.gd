@@ -37,7 +37,15 @@ var weapon_profiles = {
 	"doublebarrel": {
 		"idle_gap": 20.0,
 		"move_gap": 40.0
-	}
+	},
+	"pump": {
+		"idle_gap": 15.0,
+		"move_gap": 30.0
+	},
+	"lever": {
+		"idle_gap": 18.0,
+		"move_gap": 36.0
+	},
 }
 
 var current_weapon_id := "base"

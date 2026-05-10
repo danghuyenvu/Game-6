@@ -6,8 +6,8 @@ class_name DoubleBarrel
 
 const MAG_SIZE := 2
 const FIRE_RATE := 0.25
-const PELLETS := 6
-const DAMAGE := 30
+const PELLETS := 15
+const DAMAGE := 8
 
 var current_ammo := MAG_SIZE
 
@@ -15,7 +15,7 @@ var current_ammo := MAG_SIZE
 func _ready():
 	weapon_id = "doublebarrel"
 	weapon_damage = DAMAGE
-	weapon_range = 80
+	weapon_range = 100
 
 	call_deferred("update_hud")
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cshopp5p8ioc8"]
+[gd_scene load_steps=7 format=3 uid="uid://cshopp5p8ioc8"]
 
 [ext_resource type="PackedScene" uid="uid://c6okob3uq6nso" path="res://FBX/Shotgun_01.fbx" id="1_ofxg8"]
+[ext_resource type="Script" uid="uid://da8f6ua7cr0av" path="res://pump.gd" id="1_rgoba"]
 
 [sub_resource type="Animation" id="Animation_s2wbq"]
 length = 0.001
@@ -117,6 +118,7 @@ _data = {
 }
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_rgoba")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

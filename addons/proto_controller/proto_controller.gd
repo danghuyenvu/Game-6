@@ -9,8 +9,11 @@ extends CharacterBody3D
 
 @export_group("Speeds")
 @export var look_speed : float = 0.002
-@export var base_speed : float = 5.0
-@export var jump_velocity : float = 5.0
+## Normal speed.
+@export var base_speed : float = 3.0
+## Speed of jump.
+@export var jump_velocity : float = 4.0
+## How fast do we run?
 @export var sprint_speed : float = 7.5
 @export var freefly_speed : float = 25.0
 
@@ -34,9 +37,19 @@ var freeflying : bool = false
 @onready var crosshair = $CanvasLayer/Crosshair
 @onready var sync: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
+@export var air_accel := 3.0
+@export var ground_accel := 2.0
+@export var auto_jump := true
+
+var jump_held := false
 var nearby_items: Array = []
 var nearby_shop: Node = null
 var _authority_applied: bool = false
+
+func grab_item(item) -> void:
+	item.apply_effect(self)
+	item.queue_free()
+	print("Grabbed", item.item_type)
 
 func _ready() -> void:
 	var peer_id = name.to_int() 
@@ -149,6 +162,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		weapon_manager.equip_primary()
 	if Input.is_key_pressed(KEY_2):
 		weapon_manager.equip_secondary()
+		
+	if Input.is_key_pressed(KEY_E):
+		if nearby_shop != null:
+			nearby_shop.open_menu()
+		else:
+			if nearby_items.size() > 0:
+				var item = nearby_items.pop_front()
+				grab_item(item)
 
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
@@ -176,7 +197,9 @@ func _physics_process(delta: float) -> void:
 			velocity += get_gravity() * delta
 
 	if can_jump:
-		if Input.is_action_just_pressed(input_jump) and is_on_floor():
+		if auto_jump and jump_held and is_on_floor():
+			velocity.y = jump_velocity
+		elif Input.is_action_just_pressed(input_jump) and is_on_floor():
 			velocity.y = jump_velocity
 
 	if can_sprint and Input.is_action_pressed(input_sprint):
@@ -184,22 +207,67 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_speed = base_speed
 
-	if can_move:
-		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
-		var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		if move_dir:
-			velocity.x = move_dir.x * move_speed
-			velocity.z = move_dir.z * move_speed
-		else:
-			velocity.x = move_toward(velocity.x, 0, move_speed)
-			velocity.z = move_toward(velocity.z, 0, move_speed)
-	else:
-		velocity.x = 0
-		velocity.y = 0
 
+	# ----------------------------
+	# STRAFE BHOP MOVEMENT (FIXED)
+	# ----------------------------
+	if can_move:
+
+		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
+		var wish_dir := (head.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+		var horizontal_vel := Vector3(velocity.x, 0, velocity.z)
+
+		# ----------------------------
+		# GROUND MOVEMENT (tight FPS feel)
+		# ----------------------------
+		if is_on_floor():
+
+			if wish_dir != Vector3.ZERO:
+				var target = wish_dir * move_speed
+
+				# direct acceleration (no smoothing / no lerp)
+				horizontal_vel = horizontal_vel.move_toward(target, ground_accel * delta * 20.0)
+
+			else:
+				# strong friction (THIS fixes sliding)
+				horizontal_vel = horizontal_vel.move_toward(Vector3.ZERO, ground_accel * delta * 25.0)
+
+		# ----------------------------
+		# AIR MOVEMENT (STRONGER STRAFE SPEED GAIN)
+		# ----------------------------
+		else:
+	
+			if wish_dir != Vector3.ZERO:
+
+				var horizontal_speed: float = horizontal_vel.length()
+
+				var vel_dir: Vector3 = horizontal_vel.normalized() if horizontal_speed > 0.001 else Vector3.ZERO
+
+				var alignment: float = vel_dir.dot(wish_dir)
+
+				# stronger base accel
+				var accel: float = air_accel * delta * 2.0
+
+				# STRAFE BOOST (more aggressive than before)
+				var strafe_factor: float = 1.0 + pow(max(0.0, -alignment), 1.5) * 15
+
+				var target_speed: float = move_speed
+
+				var current_along_dir: float = horizontal_vel.dot(wish_dir)
+				var speed_diff: float = target_speed - current_along_dir
+
+				if speed_diff > 0.0:
+					var add_speed: float = min(accel * strafe_factor, speed_diff)
+					horizontal_vel += wish_dir * add_speed
+
+		# apply back
+		velocity.x = horizontal_vel.x
+		velocity.z = horizontal_vel.z
 	if is_multiplayer_authority():
 		crosshair.set_moving(velocity.length() > 0.1)
-
+	
+	# Use velocity to actually move
 	move_and_slide()
 
 # ─── Look ────────────────────────────────────────────────────────────────────
@@ -260,3 +328,44 @@ func check_input_mappings():
 	if can_freefly and not InputMap.has_action(input_freefly):
 		push_error("Freefly disabled. No InputAction found for input_freefly: " + input_freefly)
 		can_freefly = false
+
+# ----------------------------
+# PLAYER HEALTH
+# ----------------------------
+@export var max_health := 100
+var health := 100
+
+@onready var hud = $CanvasLayer/HUD
+
+
+func take_damage(amount: int):
+	health -= amount
+	health = clamp(health, 0, max_health)
+
+	# Update HUD
+	if hud and hud.has_method("update_health"):
+		hud.update_health(health)
+
+	# Death
+	if health <= 0:
+		die()
+
+
+func heal(amount: int):
+	health += amount
+	health = clamp(health, 0, max_health)
+
+	if hud and hud.has_method("update_health"):
+		hud.update_health(health)
+
+
+func die():
+	print("Player died")
+
+	# disable movement
+	can_move = false
+	can_jump = false
+	can_sprint = false
+
+	# optional reset/reload
+	get_tree().reload_current_scene()

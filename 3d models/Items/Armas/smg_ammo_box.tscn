@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://li1n7a66prw7"]
+
+[ext_resource type="PackedScene" uid="uid://c66tweemohr8o" path="res://FBX/SmgAmmo_Box.fbx" id="1_gp3g0"]
+[ext_resource type="Script" uid="uid://dxonyje8t0wtt" path="res://ammo_box.gd" id="2_cxaal"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cxaal"]
+radius = 5.02262
+
+[node name="SmgAmmo_Box" unique_id=1280825609 instance=ExtResource("1_gp3g0")]
+script = ExtResource("2_cxaal")
+
+[node name="Area3D" type="Area3D" parent="." index="1" unique_id=1716403065]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=1945400526]
+shape = SubResource("SphereShape3D_cxaal")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
