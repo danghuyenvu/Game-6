@@ -103,3 +103,9 @@ func apply_hit(result):
 func update_hud():
 	if hud:
 		hud.update_ammo(current_ammo, reserve_ammo)
+
+func refill(ammo_type: String):
+	if ammo_type == "AR":
+		current_ammo = MAG_SIZE
+		reserve_ammo = MAX_RESERVE
+		update_hud()
