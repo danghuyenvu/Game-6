@@ -8,7 +8,6 @@ extends Node3D
 
 # Item attributes
 @export_enum("bottle", "burger", "hotdog", "icecream", "ketchup", "mayo", "sandwichfull", "sausage", "sauce") var item_type: String
-@export_range(0, 100, 20) var hunger_value: int = 20
 
 var base_y: float
 
@@ -39,7 +38,30 @@ func _on_area_3d_body_exited(body):
 		
 func apply_effect(body):
 	# apply effects to player here
-	
+	var heal_amount = 0
+	match item_type:
+		"bottle":
+			heal_amount = 10
+		"burger":
+			heal_amount = 70
+		"hotdog":
+			heal_amount = 50
+		"icecream":
+			heal_amount = 10
+		"ketchup":
+			heal_amount = 20
+		"mayo":
+			heal_amount = 15
+		"sandwichfull":
+			heal_amount = 90
+		"sausage":
+			heal_amount = 30
+		"sauce":
+			heal_amount = 5
+		_:
+			heal_amount = 0
+	if body.has_method("heal"):
+		body.heal(heal_amount)
 	# after done, self destruct
 	self.queue_free()
 	pass
