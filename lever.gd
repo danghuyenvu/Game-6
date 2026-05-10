@@ -154,3 +154,9 @@ func update_hud():
 # ----------------------------
 func get_spread():
 	return super.get_spread() * 2.0
+
+func refill(ammo_type: String):
+	if ammo_type == "Shotgun":
+		current_ammo = MAG_SIZE
+		reserve_ammo = MAX_RESERVE
+		update_hud()

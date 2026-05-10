@@ -39,4 +39,7 @@ func _on_area_3d_body_exited(body):
 		
 func apply_effect(body):
 	# apply effects to player here
+	
+	# after done, self destruct
+	self.queue_free()
 	pass

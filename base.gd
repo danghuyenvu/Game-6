@@ -89,3 +89,8 @@ func apply_hit(result):
 func update_hud():
 	if hud:
 		hud.update_ammo(current_ammo, MAG_SIZE)
+
+func refill(ammo_type: String):
+	if ammo_type == "Pistol":
+		current_ammo = MAG_SIZE
+		update_hud()

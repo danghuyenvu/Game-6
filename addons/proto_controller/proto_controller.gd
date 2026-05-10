@@ -65,8 +65,6 @@ var nearby_shop: Node = null
 
 func grab_item(item) -> void:
 	item.apply_effect(self)
-	item.queue_free()
-	print("Grabbed", item.item_type)
 
 func _ready() -> void:
 	check_input_mappings()
@@ -308,3 +306,11 @@ func die():
 
 	# optional reset/reload
 	get_tree().reload_current_scene()
+	
+func refill_ammo(ammo_type):
+	weapon_manager.primary_weapon.refill(ammo_type)
+	weapon_manager.secondary_weapon.refill(ammo_type)
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

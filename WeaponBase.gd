@@ -15,7 +15,6 @@ var equipped := false
 @export var weapon_damage := 15
 @export var weapon_range := 200.0
 
-
 var crosshair
 
 
