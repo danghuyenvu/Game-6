@@ -73,7 +73,6 @@ func _input(event):
 func equip_primary():
 	if primary_weapon == null:
 		return
-
 	switch_weapon(primary_weapon)
 
 

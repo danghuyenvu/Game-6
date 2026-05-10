@@ -40,7 +40,11 @@ radius = 1.0415137
 
 [node name="Bottle" type="Node3D" unique_id=1656882789]
 script = ExtResource("1_rp3vb")
+spin_speed = null
+levitate_height = null
+levitate_speed = null
 item_type = "bottle"
+hunger_value = null
 
 [node name="Cylinder_011_Cylinder_016" type="MeshInstance3D" parent="." unique_id=992958526]
 transform = Transform3D(98.480774, -17.364819, 6.2860476e-05, 17.364819, 98.480774, -0.00035649943, 2.842171e-12, 0.000361999, 100, 0, 0, 0)

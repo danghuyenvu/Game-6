@@ -15,7 +15,15 @@
 [ext_resource type="PackedScene" uid="uid://4nywpgl11701" path="res://Revolver.tscn" id="8_x436g"]
 [ext_resource type="PackedScene" uid="uid://qxc6hm2qgjrp" path="res://ar3.tscn" id="9_f4vau"]
 [ext_resource type="PackedScene" uid="uid://bi7intdv0w07m" path="res://Double.tscn" id="9_q1ipm"]
+[ext_resource type="PackedScene" uid="uid://l5vmrvsyrr7n" path="res://smg1.tscn" id="10_3o3af"]
+[ext_resource type="Script" uid="uid://citr18pwm78ks" path="res://smg_1.gd" id="11_ymooi"]
+[ext_resource type="PackedScene" uid="uid://dfgys8item7yj" path="res://smg2.tscn" id="12_6s64k"]
+[ext_resource type="Script" uid="uid://16jfeiycdir4" path="res://smg_2.gd" id="13_xqi1m"]
 [ext_resource type="PackedScene" uid="uid://cq32gcxxqc671" path="res://ass_rif1.tscn" id="14_cisnj"]
+[ext_resource type="PackedScene" uid="uid://dtn5oaadsl3mu" path="res://smg3.tscn" id="14_q1enc"]
+[ext_resource type="Script" uid="uid://b6yfpyn6086xt" path="res://smg_3.gd" id="15_mda26"]
+[ext_resource type="PackedScene" uid="uid://bgnwipaw6svpq" path="res://smg4.tscn" id="16_pn0jt"]
+[ext_resource type="Script" uid="uid://buxgr2bojij3l" path="res://smg_4.gd" id="17_mda26"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -59,7 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
 [node name="WeaponManager" type="Node3D" parent="Head/Camera3D" unique_id=2109098121 node_paths=PackedStringArray("dev_primary")]
 script = ExtResource("2_ujot4")
-dev_primary = NodePath("PrimarySlot/AUG")
+dev_primary = NodePath("PrimarySlot/SMG4")
 
 [node name="PrimarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=1856896201]
 
@@ -90,6 +98,26 @@ visible = false
 [node name="AUG" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=661047730 instance=ExtResource("9_f4vau")]
 transform = Transform3D(-0.15, 0, -2.2649372e-08, 0, 0.15, 0, 2.2649372e-08, 0, -0.15, 0.13076097, -0.093767285, -0.13901909)
 visible = false
+
+[node name="SMG1" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1471503497 instance=ExtResource("10_3o3af")]
+transform = Transform3D(-0.1, 0, -8.742278e-09, 0, 0.1, 0, 8.742278e-09, 0, -0.1, 0.14306621, -0.17003006, -0.17372388)
+visible = false
+script = ExtResource("11_ymooi")
+
+[node name="SMG2" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=790682180 instance=ExtResource("12_6s64k")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.10004625, -0.1301943, -0.18919605)
+visible = false
+script = ExtResource("13_xqi1m")
+
+[node name="SMG3" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=306950646 instance=ExtResource("14_q1enc")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.1266082, -0.09701711, -0.14165819)
+visible = false
+script = ExtResource("15_mda26")
+
+[node name="SMG4" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1123762342 instance=ExtResource("16_pn0jt")]
+transform = Transform3D(-0.1, 0, -8.742278e-09, 0, 0.1, 0, 8.742278e-09, 0, -0.1, 0.09400597, -0.1243875, -0.14481732)
+visible = false
+script = ExtResource("17_mda26")
 
 [node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=1848784409]
 
