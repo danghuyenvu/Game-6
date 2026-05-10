@@ -13,7 +13,7 @@ var reserve_ammo := MAX_RESERVE
 
 func _ready():
 	weapon_id = "awp"
-	weapon_damage = 150
+	weapon_damage = 250
 	weapon_range = 1000
 
 	call_deferred("update_hud")

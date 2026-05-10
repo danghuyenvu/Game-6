@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=3 uid="uid://doaikgv7qktff"]
+[gd_scene load_steps=191 format=3 uid="uid://doaikgv7qktff"]
 
 [ext_resource type="PackedScene" uid="uid://qr8qklyxdv62" path="res://ground/ground_1.glb" id="1_6skux"]
 [ext_resource type="Texture2D" uid="uid://bpci128crlocf" path="res://Sky/ChatGPT Image May 8, 2026, 01_06_52 AM.png" id="1_n5say"]
@@ -154,7 +154,6 @@
 [ext_resource type="PackedScene" uid="uid://7rdw1hsdc0ml" path="res://3d models/Misc/tire.glb" id="151_3aq5e"]
 [ext_resource type="PackedScene" uid="uid://fccqj416gdei" path="res://FBX/Pistol_02.fbx" id="151_xx4x2"]
 [ext_resource type="PackedScene" uid="uid://b3xuif7rp2sgo" path="res://FBX/Pistol_03.fbx" id="152_520xr"]
-[ext_resource type="PackedScene" uid="uid://0jkifos5tyge" path="res://3d models/Misc/wooden_wall.glb" id="152_v361h"]
 [ext_resource type="PackedScene" uid="uid://dgiqb4i2cb2p7" path="res://FBX/Revolver_02.fbx" id="153_lgbu1"]
 [ext_resource type="PackedScene" uid="uid://c66tweemohr8o" path="res://FBX/SmgAmmo_Box.fbx" id="155_5vtos"]
 [ext_resource type="PackedScene" uid="uid://m3l60mwbsi0h" path="res://FBX/SubmachineGun_01.fbx" id="156_fnds1"]
@@ -162,9 +161,9 @@
 [ext_resource type="PackedScene" uid="uid://b5oxp68ntlyxx" path="res://FBX/SubmachineGun_03.fbx" id="158_swcdo"]
 [ext_resource type="PackedScene" uid="uid://btueocmabgkcu" path="res://FBX/SubmachineGun_04.fbx" id="159_c6q86"]
 [ext_resource type="PackedScene" uid="uid://dnkgeauyf1i56" path="res://FBX/SubmachineGun_05.fbx" id="160_a2tde"]
+[ext_resource type="PackedScene" uid="uid://cueer1mg6qgd4" path="res://FBX/Shotgun_02.fbx" id="162_lgbu1"]
 [ext_resource type="PackedScene" uid="uid://bvot80hdxl2x" path="res://3d models/Misc/barrel.tscn" id="162_o0ge3"]
 [ext_resource type="PackedScene" uid="uid://c6okob3uq6nso" path="res://FBX/Shotgun_01.fbx" id="163_wvac1"]
-[ext_resource type="PackedScene" uid="uid://cueer1mg6qgd4" path="res://FBX/Shotgun_02.fbx" id="164_xx4x2"]
 [ext_resource type="PackedScene" uid="uid://b4hwecbq3lr7l" path="res://FBX/Shotgun_03.fbx" id="165_520xr"]
 [ext_resource type="PackedScene" uid="uid://cffosd0pq6irt" path="res://FBX/ShotgunAmmo_Box.fbx" id="166_lgbu1"]
 [ext_resource type="PackedScene" uid="uid://b7ir634oenv1j" path="res://FBX/AssaultRifle_01.fbx" id="167_lgbu1"]
@@ -15209,23 +15208,23 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -42, 0, -10)
 [node name="ground_planks17" parent="SniperZone" instance=ExtResource("85_hmuwv")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -38, 0, -4)
 
-[node name="wooden_wall20" parent="SniperZone" instance=ExtResource("152_v361h")]
-transform = Transform3D(2.6226832e-07, 0, -2, 0, 2, 0, 2, 0, 2.6226832e-07, -34, 0, -6)
-
-[node name="wooden_wall19" parent="SniperZone" instance=ExtResource("152_v361h")]
-transform = Transform3D(2.6226832e-07, 0, -2, 0, 2, 0, 2, 0, 2.6226832e-07, -34, 0, -10)
-
-[node name="wooden_wall18" parent="SniperZone" instance=ExtResource("152_v361h")]
-transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -50, 0, -6)
-
-[node name="wooden_wall17" parent="SniperZone" instance=ExtResource("152_v361h")]
-transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -50, 0, -10)
-
 [node name="wooden_wall2" parent="SniperZone" instance=ExtResource("136_xbrl3")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -48, 0, -4)
 
 [node name="wooden_wall3" parent="SniperZone" instance=ExtResource("136_xbrl3")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -36, 0, -4)
+
+[node name="wooden_wall4" parent="SniperZone" instance=ExtResource("136_xbrl3")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -50, 0, -6)
+
+[node name="wooden_wall5" parent="SniperZone" instance=ExtResource("136_xbrl3")]
+transform = Transform3D(-8.742278e-08, 0, 2, 0, 2, 0, -2, 0, -8.742278e-08, -50, 0, -10)
+
+[node name="wooden_wall6" parent="SniperZone" instance=ExtResource("136_xbrl3")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -34, 0, -6)
+
+[node name="wooden_wall7" parent="SniperZone" instance=ExtResource("136_xbrl3")]
+transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -34, 0, -10)
 
 [node name="SGZone" type="Node3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.1433468, 0, -19.301764)
@@ -15254,8 +15253,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3319144, 0, -38)
 [node name="Shotgun_01" parent="SGZone" instance=ExtResource("163_wvac1")]
 transform = Transform3D(0, -0.29999995, -2.2351742e-08, 0.29326224, -2.1669077e-08, 0.06322341, -0.06322339, -1.728079e-09, 0.29326224, -4.320981, 0.884102, -37.366978)
 
-[node name="Shotgun_02" parent="SGZone" instance=ExtResource("164_xx4x2")]
-transform = Transform3D(-6.556708e-09, 0.14999999, 0, -0.14999999, -6.556708e-09, 0, 0, 0, 0.14999999, -2.7730265, 1.2217535, -36.868008)
+[node name="Shotgun_02" parent="SGZone" instance=ExtResource("162_lgbu1")]
+transform = Transform3D(-6.556708e-09, 0.14999999, 0, -0.14999999, -6.556708e-09, 0, 0, 0, 0.14999999, -2.7704453, 1.1778543, -37.396473)
 
 [node name="Shotgun_03" parent="SGZone" instance=ExtResource("165_520xr")]
 transform = Transform3D(-6.556708e-09, 6.556709e-09, -0.15, 0.15, -6.5567085e-09, -6.5567085e-09, -6.556709e-09, -0.15, -6.5567085e-09, -3.5575666, 1.167904, -37.797466)

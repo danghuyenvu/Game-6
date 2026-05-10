@@ -14,7 +14,7 @@ var current_ammo := MAG_SIZE
 func _ready():
 	weapon_id = "revolver"
 	weapon_damage = DAMAGE
-	weapon_range = 160
+	weapon_range = 350
 
 	call_deferred("update_hud")
 

@@ -1,34 +1,7 @@
-[gd_scene format=3 uid="uid://cslj52gyfac74"]
+[gd_scene load_steps=7 format=3 uid="uid://cslj52gyfac74"]
 
 [ext_resource type="PackedScene" uid="uid://cueer1mg6qgd4" path="res://FBX/Shotgun_02.fbx" id="1_b1op8"]
-
-[sub_resource type="Animation" id="Animation_pix2u"]
-resource_name = "shoot"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0.17560995, 0.6105771), Vector3(0.02959609, 0.27784407, 1.0189108), Vector3(0, 0.17560995, 0.6105771)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.10471975, 0, 0), Vector3(0, 0, 0)]
-}
+[ext_resource type="Script" uid="uid://b8w6vpmjj62l" path="res://lever.gd" id="1_pix2u"]
 
 [sub_resource type="Animation" id="Animation_cnfg5"]
 length = 0.001
@@ -94,7 +67,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.55, 0.7, 0.85, 1, 1.15, 1.3, 1.45, 1.6, 1.75, 1.9, 2.05, 2.2, 2.35, 2.5, 2.65, 2.8, 2.95, 3.1, 3.3, 3.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0, -0.40506262, 1.4626305)]
+"values": [Vector3(0, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0.69877493, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952), Vector3(0, -0.40506262, -0.28282952)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -109,6 +82,34 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0), Vector3(0, 1.5707964, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_pix2u"]
+resource_name = "shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.17560995, 0.6105771), Vector3(0.02959609, 0.27784407, 1.0189108), Vector3(0, 0.17560995, 0.6105771)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.10471975, 0, 0), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srstd"]
 _data = {
 &"RESET": SubResource("Animation_cnfg5"),
@@ -117,6 +118,7 @@ _data = {
 }
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_pix2u")
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17560995, 0.6105771)

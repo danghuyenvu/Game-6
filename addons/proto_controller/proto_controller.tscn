@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene load_steps=18 format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://dnmmttkhkxeys" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://dbl1nqk3ebxc0" path="res://addons/proto_controller/weapon_manager.gd" id="2_ujot4"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bwue28wlw1ox2" path="res://addons/proto_controller/control.gd" id="3_5hfox"]
 [ext_resource type="Script" uid="uid://ccvu7gprsuwvf" path="res://addons/proto_controller/hud.gd" id="4_6dqce"]
 [ext_resource type="PackedScene" uid="uid://cea6asxui5s88" path="res://Base.tscn" id="4_h60nn"]
+[ext_resource type="PackedScene" uid="uid://cshopp5p8ioc8" path="res://Pump.tscn" id="5_2yh8o"]
+[ext_resource type="PackedScene" uid="uid://cslj52gyfac74" path="res://Lever.tscn" id="6_cisnj"]
 [ext_resource type="PackedScene" uid="uid://gniatk6yoqg5" path="res://Pistol.tscn" id="6_ths8c"]
 [ext_resource type="PackedScene" uid="uid://b7jldib6deouk" path="res://DE.tscn" id="7_x436g"]
 [ext_resource type="PackedScene" uid="uid://4nywpgl11701" path="res://Revolver.tscn" id="8_x436g"]
@@ -44,9 +46,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7499409, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("dev_secondary")]
+[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("dev_primary")]
 script = ExtResource("2_ujot4")
-dev_secondary = NodePath("SecondarySlot/DoubleBarrel")
+dev_primary = NodePath("PrimarySlot/Pump")
 
 [node name="PrimarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager"]
 
@@ -56,6 +58,14 @@ visible = false
 
 [node name="AWP" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("2_wr06p")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.13801476, -0.11472213, -0.14985523)
+visible = false
+
+[node name="Pump" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("5_2yh8o")]
+transform = Transform3D(-6.5567085e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.5567085e-09, 0.11101401, -0.12697959, 0)
+visible = false
+
+[node name="Lever" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("6_cisnj")]
+transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0.12265584, -0.10526943, -0.14838244)
 visible = false
 
 [node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager"]
