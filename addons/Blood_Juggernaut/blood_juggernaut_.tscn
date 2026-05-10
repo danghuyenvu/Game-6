@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d0m4frc23eucx" path="res://addons/Blood_Juggernaut/Textures/low casco dolor.png" id="1_rqec5"]
 [ext_resource type="Texture2D" uid="uid://dflvr2ebb4lj0" path="res://addons/Blood_Juggernaut/Textures/cuerpo metal.png" id="2_gud87"]
-[ext_resource type="Script" uid="uid://yrfqby34nk4j" path="res://addons/Blood_Juggernaut/blood_juggernaut_.gd" id="2_vullw"]
+[ext_resource type="Script" uid="uid://c7m067k7tgq3y" path="res://addons/Blood_Juggernaut/blood_juggernaut_.gd" id="2_vullw"]
 [ext_resource type="Texture2D" uid="uid://cesyfpxjulv02" path="res://addons/Blood_Juggernaut/Textures/hombreras.png" id="3_ldap7"]
 [ext_resource type="Texture2D" uid="uid://qym38tcb8eai" path="res://addons/Blood_Juggernaut/Textures/Low Rodilleras.png" id="4_pulle"]
 
