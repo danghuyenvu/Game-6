@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://dnmmttkhkxeys" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://dbl1nqk3ebxc0" path="res://addons/proto_controller/weapon_manager.gd" id="2_ujot4"]
@@ -27,72 +27,80 @@ height = 3.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rk7u"]
 bg_color = Color(0.6, 1, 0.6, 1)
 
-[node name="ProtoController" type="CharacterBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_q1ipm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="ProtoController" type="CharacterBody3D" unique_id=1240680387]
 script = ExtResource("1_ucva2")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1341275934]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5305128, 0)
 material_override = SubResource("StandardMaterial3D_iof21")
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_ucva2")
 
-[node name="Collider" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=925077803]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.54895914, 0)
 shape = SubResource("CapsuleShape3D_g2uji")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=117991769]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7499409, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1657220406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("dev_primary")]
+[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" unique_id=2109098121 node_paths=PackedStringArray("dev_primary")]
 script = ExtResource("2_ujot4")
 dev_primary = NodePath("PrimarySlot/Pump")
 
-[node name="PrimarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager"]
+[node name="PrimarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=126659461]
 
-[node name="Marksman" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("3_0rk7u")]
+[node name="Marksman" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1566992334 instance=ExtResource("3_0rk7u")]
 transform = Transform3D(0.175, 0, 0, 0, 0.175, 0, 0, 0, 0.175, 0.1162605, -0.09808755, -0.14260356)
 visible = false
 
-[node name="AWP" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("2_wr06p")]
+[node name="AWP" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1071532020 instance=ExtResource("2_wr06p")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.13801476, -0.11472213, -0.14985523)
 visible = false
 
-[node name="Pump" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("5_2yh8o")]
+[node name="Pump" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1130514441 instance=ExtResource("5_2yh8o")]
 transform = Transform3D(-6.5567085e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.5567085e-09, 0.11101401, -0.12697959, 0)
 visible = false
 
-[node name="Lever" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("6_cisnj")]
+[node name="Lever" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=2066454563 instance=ExtResource("6_cisnj")]
 transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0.12265584, -0.10526943, -0.14838244)
 visible = false
 
-[node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager"]
+[node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=915362437]
 
-[node name="Base" parent="Head/Camera3D/WeaponManager/SecondarySlot" instance=ExtResource("4_h60nn")]
+[node name="Base" parent="Head/Camera3D/WeaponManager/SecondarySlot" unique_id=444285359 instance=ExtResource("4_h60nn")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.085150704, -0.14815092, -0.10035473)
 visible = false
 
-[node name="Pistol" parent="Head/Camera3D/WeaponManager/SecondarySlot" instance=ExtResource("6_ths8c")]
+[node name="Pistol" parent="Head/Camera3D/WeaponManager/SecondarySlot" unique_id=341951933 instance=ExtResource("6_ths8c")]
 transform = Transform3D(-0.04, 0, 6.0398317e-09, 0, 0.04, 0, -6.0398317e-09, 0, -0.04, 0.085814506, -0.17087865, -0.08724632)
 visible = false
 
-[node name="Magnum" parent="Head/Camera3D/WeaponManager/SecondarySlot" instance=ExtResource("7_x436g")]
+[node name="Magnum" parent="Head/Camera3D/WeaponManager/SecondarySlot" unique_id=1221677443 instance=ExtResource("7_x436g")]
 transform = Transform3D(-0.05, 0, 7.54979e-09, 0, 0.05, 0, -7.54979e-09, 0, -0.05, 0.08924362, -0.1617505, -0.09659296)
 visible = false
 
-[node name="Revolver" parent="Head/Camera3D/WeaponManager/SecondarySlot" instance=ExtResource("8_x436g")]
+[node name="Revolver" parent="Head/Camera3D/WeaponManager/SecondarySlot" unique_id=1416144652 instance=ExtResource("8_x436g")]
 transform = Transform3D(-0.05, 0, -7.54979e-09, 0, 0.05, 0, 7.54979e-09, 0, -0.05, 0.089800596, -0.16659409, -0.07776636)
 visible = false
 
-[node name="DoubleBarrel" parent="Head/Camera3D/WeaponManager/SecondarySlot" instance=ExtResource("9_q1ipm")]
+[node name="DoubleBarrel" parent="Head/Camera3D/WeaponManager/SecondarySlot" unique_id=1099874985 instance=ExtResource("9_q1ipm")]
 transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0.09895122, -0.113860905, -0.21610701)
 visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=254910111]
 
-[node name="Crosshair" type="Control" parent="CanvasLayer"]
+[node name="Crosshair" type="Control" parent="CanvasLayer" unique_id=326852122]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -108,7 +116,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_5hfox")
 
-[node name="Top" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Top" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1351874349]
 custom_minimum_size = Vector2(2, 10)
 layout_mode = 1
 anchors_preset = 8
@@ -123,7 +131,7 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Left" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Left" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1986166575]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -137,7 +145,7 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Right" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Right" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=2033431943]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -151,7 +159,7 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Bottom" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Bottom" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1403466921]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -167,7 +175,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=782466289]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -182,7 +190,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_6dqce")
 
-[node name="AmmoLabel" type="Label" parent="CanvasLayer/HUD"]
+[node name="AmmoLabel" type="Label" parent="CanvasLayer/HUD" unique_id=1879442512]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -197,7 +205,7 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "10/50"
 
-[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD" unique_id=1102664266]
 layout_mode = 0
 offset_top = 618.0
 offset_right = 250.0
@@ -206,10 +214,13 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_0rk7u")
 value = 100.0
 show_percentage = false
 
-[node name="HealthText" type="Label" parent="CanvasLayer/HUD"]
+[node name="HealthText" type="Label" parent="CanvasLayer/HUD" unique_id=1688836943]
 layout_mode = 0
 offset_left = 105.0
 offset_top = 621.5
 offset_right = 145.0
 offset_bottom = 644.5
 text = "100"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=701023484]
+replication_config = SubResource("SceneReplicationConfig_q1ipm")

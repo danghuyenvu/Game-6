@@ -114,7 +114,9 @@ func _set_secondary(weapon: WeaponBase):
 		secondary_weapon.queue_free()
 
 	secondary_weapon = weapon
-	secondary_slot.add_child(secondary_weapon)
+	if weapon.get_parent():
+		weapon.get_parent().remove_child(weapon)
+	secondary_slot.add_child(weapon)
 	secondary_weapon.unequip()
 
 

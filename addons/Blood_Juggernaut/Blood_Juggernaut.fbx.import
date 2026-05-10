@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://brhujbae7umcs"
-valid=false
+path="res://.godot/imported/Blood_Juggernaut.fbx-2c23e8e610e15b8b3522f5d28fc35121.scn"
 
 [deps]
 
 source_file="res://addons/Blood_Juggernaut/Blood_Juggernaut.fbx"
+dest_files=["res://.godot/imported/Blood_Juggernaut.fbx-2c23e8e610e15b8b3522f5d28fc35121.scn"]
 
 [params]
 

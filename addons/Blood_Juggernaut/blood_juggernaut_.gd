@@ -27,7 +27,7 @@ const ANIM_TRACK := {
 }
 
 const ANIM_LOOP := {
-	State.IDLE: true, State.CHASE: true, State.JUMP_IDLE: true,
+	State.IDLE: true, State.CHASE: true, State.JUMP_IDLE: false,
 	State.ROAR: false, State.LEAP: false, State.ATTACK: false,
 	State.HURT: false, State.DEAD: false,
 }
@@ -108,13 +108,14 @@ func _physics_process(delta: float) -> void:
 	_refresh_target()
 	_update_state()
 	_tick_animation()
+
+	# Nếu đang nhảy thì vẫn cập nhật hướng bay
+	if state == State.LEAP and _leap_dir != Vector3.ZERO:
+		velocity.x = _leap_dir.x * leap_speed
+		velocity.z = _leap_dir.z * leap_speed
+
 	_apply_movement(delta)
-
 	move_and_slide()
-
-	# Step-up: nudge over small obstacles
-	if is_on_wall() and is_on_floor():
-		velocity.y = 5.0
 
 
 # ════════════════════════════════════════════════════════════
@@ -122,12 +123,11 @@ func _physics_process(delta: float) -> void:
 # ════════════════════════════════════════════════════════════
 func _update_state() -> void:
 	match state:
-		State.ROAR, State.LEAP, State.HURT:
+		State.ROAR, State.LEAP, State.HURT, State.JUMP_IDLE:
 			return
 		State.ATTACK:
 			_process_attack_hit()
 			return
-
 	if not is_instance_valid(target):
 		_play_state(State.IDLE)
 		return
@@ -190,8 +190,20 @@ func _play_state(next_state: State, force := false) -> void:
 	if state == State.LEAP and is_instance_valid(target):
 		var dir := target.global_position - global_position
 		dir.y = 0.0
+		var dist := dir.length()
 		_leap_dir = dir.normalized()
-		velocity = _leap_dir * leap_speed + Vector3.UP * leap_arc_height
+
+	# Tính thời gian bay dựa trên animation
+		var t := LEAP_END_TIME
+
+	# Tính velocity ngang để vừa tới target
+		var vx := dir.x / t
+		var vz := dir.z / t
+
+	# Tính velocity dọc để tạo cung parabol
+		var vy := (target.global_position.y - global_position.y) / t + leap_arc_height
+
+		velocity = Vector3(vx, vy, vz)
 
 
 func _tick_animation() -> void:
@@ -215,11 +227,18 @@ func _on_clip_finished() -> void:
 			_play_state(State.CHASE if is_instance_valid(target) else State.IDLE)
 		State.LEAP:
 			_leap_dir = Vector3.ZERO
+# Snap boss về gần target để tránh lệch collision
+			if is_instance_valid(target):
+				global_position.x = target.global_position.x + (target.global_position.x - global_position.x)
+				global_position.z = target.global_position.z + (target.global_position.z - global_position.z)
 			_play_state(State.ATTACK if _dist_to_target() <= attack_range + 1.5 else State.CHASE)
 		State.ATTACK:
 			_attack_cooldown_left = attack_cooldown
 			_play_state(State.CHASE if is_instance_valid(target) else State.IDLE)
 		State.HURT:
+			_play_state(State.CHASE if is_instance_valid(target) else State.IDLE)
+		State.JUMP_IDLE:
+			# Khi animation Jump Idle kết thúc thì thoát ra
 			_play_state(State.CHASE if is_instance_valid(target) else State.IDLE)
 		State.DEAD:
 			if _anim:
@@ -238,14 +257,16 @@ func _apply_movement(delta: float) -> void:
 			flat.y = 0.0
 			if flat.length_squared() > 0.01:
 				_face_direction(flat.normalized(), delta)
-		State.ATTACK, State.JUMP_IDLE, State.ROAR:
+		State.ATTACK, State.ROAR:
 			_face_target(delta)
-			velocity.x = move_toward(velocity.x, 0.0, move_speed * 10.0 * delta)
-			velocity.z = move_toward(velocity.z, 0.0, move_speed * 10.0 * delta)
+			velocity.x = 0.0
+			velocity.z = 0.0
+		State.JUMP_IDLE, State.IDLE:
+			_face_target(delta)
+			velocity = Vector3.ZERO
 		_:
 			velocity.x = move_toward(velocity.x, 0.0, move_speed * 10.0 * delta)
 			velocity.z = move_toward(velocity.z, 0.0, move_speed * 10.0 * delta)
-
 
 func _move_toward_target(delta: float) -> void:
 	if not is_instance_valid(target):

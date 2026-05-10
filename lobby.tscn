@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cowrr6ifwd27d"]
+
+[ext_resource type="Script" uid="uid://dfqqq3jdwiach" path="res://lobby.gd" id="1"]
+
+[node name="Lobby" type="Control" unique_id=483911870]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=41972195]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -120.0
+offset_right = 150.0
+offset_bottom = 120.0
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="VBox" unique_id=843069157]
+layout_mode = 2
+text = "Multiplayer Lobby"
+horizontal_alignment = 1
+
+[node name="IPField" type="LineEdit" parent="VBox" unique_id=2105790002]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+placeholder_text = "IP Address (127.0.0.1 for local)"
+
+[node name="HostButton" type="Button" parent="VBox" unique_id=602469280]
+layout_mode = 2
+text = "Host Game"
+
+[node name="JoinButton" type="Button" parent="VBox" unique_id=1391251063]
+layout_mode = 2
+text = "Join Game"
+
+[node name="Status" type="Label" parent="VBox" unique_id=1037530398]
+layout_mode = 2
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBox/HostButton" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="VBox/JoinButton" to="." method="_on_join_pressed"]
