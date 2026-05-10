@@ -1,85 +1,10 @@
-[gd_scene format=3 uid="uid://2xv35dnarc0v"]
+[gd_scene load_steps=7 format=3 uid="uid://2xv35dnarc0v"]
 
 [ext_resource type="PackedScene" uid="uid://ctl4got6k6vm0" path="res://FBX/SniperRifle_01.fbx" id="1_c56vp"]
-
-[sub_resource type="Animation" id="Animation_q81eb"]
-resource_name = "shoot"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.705588), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.15354311), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.06981317, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.34906584), Vector3(0, 0, 0)]
-}
+[ext_resource type="Script" uid="uid://ipgcega40yh4" path="res://marksman.gd" id="1_q81eb"]
 
 [sub_resource type="Animation" id="Animation_1fw3a"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node3D/Node3D2:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.11797081, -0.16872525)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node3D/Node3D2:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.0471976, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_avvbf"]
 resource_name = "reload"
@@ -109,6 +34,34 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(1.0471976, 0, 0), Vector3(1.0471976, 0, 0), Vector3(0.6981317, 0, 0), Vector3(1.0471976, 0, 0), Vector3(1.0471976, 0, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_q81eb"]
+resource_name = "shoot"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.705588), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.15354311), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.06981317, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0.34906584), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fn2in"]
 _data = {
 &"RESET": SubResource("Animation_1fw3a"),
@@ -117,6 +70,7 @@ _data = {
 }
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_q81eb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -127,7 +81,7 @@ libraries = {
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Node3D2" type="Node3D" parent="Node3D"]
-transform = Transform3D(0.9999994, 0, 0, 0, 0.49999994, -0.8660252, 0, 0.8660254, 0.49999982, 0, -0.11797081, -0.16872525)
+transform = Transform3D(0.9999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.9999997, 0, -0.11797081, -0.16872525)
 
 [node name="SniperRifle_01" parent="Node3D/Node3D2" instance=ExtResource("1_c56vp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010199845, 0.2558912, -0.3993141)

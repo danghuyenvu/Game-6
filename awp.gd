@@ -1,38 +1,52 @@
-extends Node3D
+extends WeaponBase
 
 @onready var anim = $AnimationPlayer
+@onready var hud = get_node("/root/Node3D/ProtoController/CanvasLayer/HUD")
 
-const MAG_SIZE = 10
-const MAX_RESERVE = 50
-const FIRE_RATE = 0.95
+const MAG_SIZE := 10
+const MAX_RESERVE := 50
+const FIRE_RATE := 0.95
 
-var current_ammo = MAG_SIZE
-var reserve_ammo = MAX_RESERVE
-var can_shoot = true
-var reloading = false
+var current_ammo := MAG_SIZE
+var reserve_ammo := MAX_RESERVE
 
-func _input(event):
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
 
-	if Input.is_action_just_pressed("reload"):
-		reload()
+func _ready():
+	weapon_id = "awp"
+	weapon_damage = 250
+	weapon_range = 1000
+
+	call_deferred("update_hud")
+
+
+func equip():
+	super.equip()
+	update_hud()
+
+
+func unequip():
+	super.unequip()
+
 
 func shoot():
+	if not equipped:
+		return
+
 	if not can_shoot or reloading:
 		return
 
 	if current_ammo <= 0:
-		print("Empty mag")
 		return
 
-	current_ammo -= 1
 	can_shoot = false
+	current_ammo -= 1
 
-	anim.play("shoot")
+	if anim:
+		anim.play("shoot")
 
-	print("Bang")
-	print("Ammo: ", current_ammo, "/", reserve_ammo)
+	hitscan_shoot()
+
+	update_hud()
 
 	await get_tree().create_timer(FIRE_RATE).timeout
 	can_shoot = true
@@ -49,7 +63,9 @@ func reload():
 		return
 
 	reloading = true
-	anim.play("reload")
+
+	if anim:
+		anim.play("reload")
 
 	await anim.animation_finished
 
@@ -60,6 +76,21 @@ func reload():
 	reserve_ammo -= to_load
 
 	reloading = false
+	update_hud()
 
-	print("Reloaded")
-	print("Ammo: ", current_ammo, "/", reserve_ammo)
+
+func get_spread():
+	# AWP = extremely precise
+	return super.get_spread() * 0.2
+
+
+func apply_hit(result):
+	var target = result.collider
+
+	if target.has_method("take_damage"):
+		target.take_damage(weapon_damage)
+
+
+func update_hud():
+	if hud:
+		hud.update_ammo(current_ammo, reserve_ammo)
