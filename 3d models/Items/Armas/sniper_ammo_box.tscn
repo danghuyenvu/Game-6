@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dl15vd651r0fn"]
+
+[ext_resource type="PackedScene" uid="uid://csl2f2sr7db1u" path="res://FBX/SniperAmmo_Box.fbx" id="1_8irfe"]
+[ext_resource type="Script" uid="uid://dxonyje8t0wtt" path="res://ammo_box.gd" id="2_m21it"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m21it"]
+radius = 5.024824
+
+[node name="SniperAmmo_Box" unique_id=735312253 instance=ExtResource("1_8irfe")]
+script = ExtResource("2_m21it")
+
+[node name="Area3D" type="Area3D" parent="." index="1" unique_id=1233182455]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=1952567317]
+shape = SubResource("SphereShape3D_m21it")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

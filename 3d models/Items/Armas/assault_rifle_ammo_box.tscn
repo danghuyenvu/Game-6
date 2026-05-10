@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dp0jyfcuhok6j"]
+
+[ext_resource type="PackedScene" uid="uid://c3l6jjsilhxal" path="res://FBX/AssaultRifleAmmo_Box.fbx" id="1_nl2fe"]
+[ext_resource type="Script" uid="uid://dxonyje8t0wtt" path="res://ammo_box.gd" id="2_vrb8y"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vrb8y"]
+radius = 5.0100393
+
+[node name="AssaultRifleAmmo_Box" unique_id=546444261 instance=ExtResource("1_nl2fe")]
+script = ExtResource("2_vrb8y")
+
+[node name="Area3D" type="Area3D" parent="." index="1" unique_id=1703165922]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=1174608763]
+shape = SubResource("SphereShape3D_vrb8y")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

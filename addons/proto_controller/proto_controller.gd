@@ -20,9 +20,9 @@ extends CharacterBody3D
 ## Look around rotation speed.
 @export var look_speed : float = 0.002
 ## Normal speed.
-@export var base_speed : float = 5.0
+@export var base_speed : float = 3.0
 ## Speed of jump.
-@export var jump_velocity : float = 5.0
+@export var jump_velocity : float = 4.0
 ## How fast do we run?
 @export var sprint_speed : float = 7.5
 ## How fast do we freefly?
@@ -52,45 +52,66 @@ var freeflying : bool = false
 ## IMPORTANT REFERENCES
 @onready var head: Node3D = $Head
 @onready var collider: CollisionShape3D = $Collider
-@onready var gun = $Head/Camera3D/AWP
+@onready var weapon_manager = $Head/Camera3D/WeaponManager
 @onready var crosshair = $CanvasLayer/Crosshair
 
+@export var air_accel := 3.0
+@export var ground_accel := 2.0
+@export var auto_jump := true
+
+var jump_held := false
 var nearby_items: Array = []
 var nearby_shop: Node = null
 
-func _ready() -> void:
-	check_input_mappings()
-	look_rotation.y = rotation.y
-	look_rotation.x = head.rotation.x
-	
 func grab_item(item) -> void:
 	item.apply_effect(self)
 	item.queue_free()
 	print("Grabbed", item.item_type)
 
+func _ready() -> void:
+	check_input_mappings()
+	look_rotation.y = rotation.y
+	look_rotation.x = head.rotation.x
+	capture_mouse()
+
 func _unhandled_input(event: InputEvent) -> void:
-	# Mouse capturing
+	if event is InputEventKey:
+		if event.keycode == KEY_SPACE:
+			jump_held = event.pressed
+			
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		capture_mouse()
+
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
+	# Mouse capturing
+	if Input.is_action_just_pressed("shoot"):
+		var weapon = weapon_manager.get_current_weapon()
+		if weapon:
+			weapon.shoot()
+
+	if Input.is_action_just_pressed("reload"):
+		var weapon = weapon_manager.get_current_weapon()
+		if weapon:
+			weapon.reload()
+			
+	if Input.is_key_pressed(KEY_1):
+		weapon_manager.equip_primary()
+
+	if Input.is_key_pressed(KEY_2):
+		weapon_manager.equip_secondary()
+		
+	if Input.is_key_pressed(KEY_E):
+		if nearby_shop != null:
+			nearby_shop.open_menu()
+		else:
+			if nearby_items.size() > 0:
+				var item = nearby_items.pop_front()
+				grab_item(item)
 	
 	# Look around
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
-	if Input.is_action_just_pressed("shoot"):
-		gun.shoot()
-	if Input.is_action_just_pressed("reload"):
-		gun.reload()
-		
-	if Input.is_action_just_pressed("interact"):
-		if nearby_shop != null:
-			nearby_shop.open_menu()
-		else:
-			# interact with nearby shops
-			if nearby_items.size() > 0:
-				var item = nearby_items.pop_front()
-				grab_item(item)
 	
 	# Toggle freefly mode
 	if can_freefly and Input.is_action_just_pressed(input_freefly):
@@ -113,30 +134,75 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 
-	# Apply jumping
+	# Apply jumping (AUTO JUMP FIXED)
 	if can_jump:
-		if Input.is_action_just_pressed(input_jump) and is_on_floor():
+		if auto_jump and jump_held and is_on_floor():
+			velocity.y = jump_velocity
+		elif Input.is_action_just_pressed(input_jump) and is_on_floor():
 			velocity.y = jump_velocity
 
-	# Modify speed based on sprinting
+	# sprint speed
 	if can_sprint and Input.is_action_pressed(input_sprint):
-			move_speed = sprint_speed
+		move_speed = sprint_speed
 	else:
 		move_speed = base_speed
 
-	# Apply desired movement to velocity
+
+	# ----------------------------
+	# STRAFE BHOP MOVEMENT (FIXED)
+	# ----------------------------
 	if can_move:
+
 		var input_dir := Input.get_vector(input_left, input_right, input_forward, input_back)
-		var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		if move_dir:
-			velocity.x = move_dir.x * move_speed
-			velocity.z = move_dir.z * move_speed
+		var wish_dir := (head.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+		var horizontal_vel := Vector3(velocity.x, 0, velocity.z)
+
+		# ----------------------------
+		# GROUND MOVEMENT (tight FPS feel)
+		# ----------------------------
+		if is_on_floor():
+
+			if wish_dir != Vector3.ZERO:
+				var target = wish_dir * move_speed
+
+				# direct acceleration (no smoothing / no lerp)
+				horizontal_vel = horizontal_vel.move_toward(target, ground_accel * delta * 20.0)
+
+			else:
+				# strong friction (THIS fixes sliding)
+				horizontal_vel = horizontal_vel.move_toward(Vector3.ZERO, ground_accel * delta * 25.0)
+
+		# ----------------------------
+		# AIR MOVEMENT (STRONGER STRAFE SPEED GAIN)
+		# ----------------------------
 		else:
-			velocity.x = move_toward(velocity.x, 0, move_speed)
-			velocity.z = move_toward(velocity.z, 0, move_speed)
-	else:
-		velocity.x = 0
-		velocity.y = 0
+			if wish_dir != Vector3.ZERO:
+
+				var horizontal_speed: float = horizontal_vel.length()
+
+				var vel_dir: Vector3 = horizontal_vel.normalized() if horizontal_speed > 0.001 else Vector3.ZERO
+
+				var alignment: float = vel_dir.dot(wish_dir)
+
+				# stronger base accel
+				var accel: float = air_accel * delta * 2.0
+
+				# STRAFE BOOST (more aggressive than before)
+				var strafe_factor: float = 1.0 + pow(max(0.0, -alignment), 1.5) * 15
+
+				var target_speed: float = move_speed
+
+				var current_along_dir: float = horizontal_vel.dot(wish_dir)
+				var speed_diff: float = target_speed - current_along_dir
+
+				if speed_diff > 0.0:
+					var add_speed: float = min(accel * strafe_factor, speed_diff)
+					horizontal_vel += wish_dir * add_speed
+
+		# apply back
+		velocity.x = horizontal_vel.x
+		velocity.z = horizontal_vel.z
 	
 	crosshair.set_moving(velocity.length() > 0.1)
 	
@@ -201,3 +267,44 @@ func check_input_mappings():
 	if can_freefly and not InputMap.has_action(input_freefly):
 		push_error("Freefly disabled. No InputAction found for input_freefly: " + input_freefly)
 		can_freefly = false
+
+# ----------------------------
+# PLAYER HEALTH
+# ----------------------------
+@export var max_health := 100
+var health := 100
+
+@onready var hud = $CanvasLayer/HUD
+
+
+func take_damage(amount: int):
+	health -= amount
+	health = clamp(health, 0, max_health)
+
+	# Update HUD
+	if hud and hud.has_method("update_health"):
+		hud.update_health(health)
+
+	# Death
+	if health <= 0:
+		die()
+
+
+func heal(amount: int):
+	health += amount
+	health = clamp(health, 0, max_health)
+
+	if hud and hud.has_method("update_health"):
+		hud.update_health(health)
+
+
+func die():
+	print("Player died")
+
+	# disable movement
+	can_move = false
+	can_jump = false
+	can_sprint = false
+
+	# optional reset/reload
+	get_tree().reload_current_scene()
