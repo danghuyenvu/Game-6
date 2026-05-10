@@ -19,6 +19,10 @@ run/main_scene="uid://doaikgv7qktff"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MobManager="*uid://pa4jxjgp03bf"
+
 [filesystem]
 
 import/blender/enabled=false

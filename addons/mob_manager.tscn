@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ct7ws5cncs0kt"]
+
+[ext_resource type="Script" uid="uid://pa4jxjgp03bf" path="res://mob_manager.gd" id="1_p3hva"]
+
+[node name="MobManager" type="Node3D" unique_id=1308517876]
+script = ExtResource("1_p3hva")

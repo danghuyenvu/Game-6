@@ -4,7 +4,7 @@ extends WeaponBase
 @onready var hud = get_node("/root/Node3D/ProtoController/CanvasLayer/HUD")
 
 const MAG_SIZE := 30
-const MAX_RESERVE := 90
+const MAX_RESERVE := 210
 const FIRE_RATE := 0.15
 
 var current_ammo := MAG_SIZE
