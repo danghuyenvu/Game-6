@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bs72ogkvdd7d6"]
+[gd_scene format=3 uid="uid://bs72ogkvdd7d6"]
 
 [ext_resource type="Script" uid="uid://dnmmttkhkxeys" path="res://addons/proto_controller/proto_controller.gd" id="1_ucva2"]
 [ext_resource type="Script" uid="uid://dbl1nqk3ebxc0" path="res://addons/proto_controller/weapon_manager.gd" id="2_ujot4"]
@@ -37,41 +37,24 @@ properties/1/replication_mode = 1
 
 [node name="ProtoController" type="CharacterBody3D" unique_id=1240680387]
 script = ExtResource("1_ucva2")
-can_move = null
-has_gravity = null
-can_jump = null
-can_sprint = null
-can_freefly = null
-look_speed = null
-base_speed = null
-jump_velocity = null
-sprint_speed = null
-freefly_speed = null
-input_left = null
-input_right = null
-input_forward = null
-input_back = null
-input_jump = null
-input_sprint = null
-input_freefly = null
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1341275934]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5305128, 0)
 material_override = SubResource("StandardMaterial3D_iof21")
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_ucva2")
 
-[node name="Collider" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=925077803]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.54895914, 0)
 shape = SubResource("CapsuleShape3D_g2uji")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=117991769]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7499409, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1657220406]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("dev_primary")]
+[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" unique_id=2109098121 node_paths=PackedStringArray("dev_primary")]
 script = ExtResource("2_ujot4")
 dev_primary = NodePath("PrimarySlot/Pump")
 
@@ -85,15 +68,15 @@ visible = false
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.13801476, -0.11472213, -0.14985523)
 visible = false
 
-[node name="Pump" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("5_2yh8o")]
+[node name="Pump" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1130514441 instance=ExtResource("5_2yh8o")]
 transform = Transform3D(-6.5567085e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.5567085e-09, 0.11101401, -0.12697959, 0)
 visible = false
 
-[node name="Lever" parent="Head/Camera3D/WeaponManager/PrimarySlot" instance=ExtResource("6_cisnj")]
+[node name="Lever" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=2066454563 instance=ExtResource("6_cisnj")]
 transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0.12265584, -0.10526943, -0.14838244)
 visible = false
 
-[node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager"]
+[node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=915362437]
 
 [node name="Base" parent="Head/Camera3D/WeaponManager/SecondarySlot" unique_id=444285359 instance=ExtResource("4_h60nn")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.085150704, -0.14815092, -0.10035473)
@@ -115,9 +98,9 @@ visible = false
 transform = Transform3D(0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.075, 0.09895122, -0.113860905, -0.21610701)
 visible = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=254910111]
 
-[node name="Crosshair" type="Control" parent="CanvasLayer"]
+[node name="Crosshair" type="Control" parent="CanvasLayer" unique_id=326852122]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -133,7 +116,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_5hfox")
 
-[node name="Top" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Top" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1351874349]
 custom_minimum_size = Vector2(2, 10)
 layout_mode = 1
 anchors_preset = 8
@@ -148,7 +131,7 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Left" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Left" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1986166575]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -162,7 +145,7 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Right" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Right" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=2033431943]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -176,7 +159,7 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Bottom" type="ColorRect" parent="CanvasLayer/Crosshair"]
+[node name="Bottom" type="ColorRect" parent="CanvasLayer/Crosshair" unique_id=1403466921]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

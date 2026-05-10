@@ -163,13 +163,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_2):
 		weapon_manager.equip_secondary()
 		
-	if Input.is_key_pressed(KEY_E):
-		if nearby_shop != null:
-			nearby_shop.open_menu()
-		else:
-			if nearby_items.size() > 0:
-				var item = nearby_items.pop_front()
-				grab_item(item)
 
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
@@ -284,10 +277,6 @@ func rotate_look(rot_input : Vector2):
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 
-func grab_item(item) -> void:
-	item.apply_effect(self)
-	item.queue_free()
-	print("Grabbed", item.item_type)
 
 func enable_freefly():
 	collider.disabled = true
