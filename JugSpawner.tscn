@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cx1pephyln55l"]
+
+[ext_resource type="Script" uid="uid://wvx57f6qalxy" path="res://jug_spawner.gd" id="1_bheng"]
+[ext_resource type="PackedScene" uid="uid://bsooyt2c1e3rr" path="res://addons/Blood_Juggernaut/blood_juggernaut_.tscn" id="2_ixw86"]
+
+[node name="jugspawn" type="Node3D" unique_id=164634688]
+script = ExtResource("1_bheng")
+mob_scene = ExtResource("2_ixw86")
+
+[node name="Timer" type="Timer" parent="." unique_id=1417787814]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=639950410]
+_spawnable_scenes = PackedStringArray("uid://bsooyt2c1e3rr")
+spawn_path = NodePath("..")
+spawn_limit = 2

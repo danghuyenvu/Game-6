@@ -64,9 +64,17 @@ const LEAP_END_TIME := 3.5
 @export var debug_logs: bool = true
 
 # ── Runtime ──────────────────────────────────────────────────
-var health:                float
 var target:                Node3D
-var state:                 State = State.IDLE
+var state: State = State.IDLE:
+	set(value):
+		state = value
+		_tick_animation() # Hàm này có sẵn trong file của bạn để play anim
+
+var health: float :
+	set(value):
+		health = value
+		if health <= 0:
+			state = State.DEAD
 var _state_time:           float = 0.0
 var _attack_cooldown_left: float = 0.0
 var _attack_has_hit:       bool  = false
@@ -91,6 +99,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_tick_animation()
+	if not multiplayer.is_server():
+		return
 	if state == State.DEAD:
 		_process_dead(delta)
 		return
@@ -107,7 +118,6 @@ func _physics_process(delta: float) -> void:
 	
 	_refresh_target()
 	_update_state()
-	_tick_animation()
 
 	# Nếu đang nhảy thì vẫn cập nhật hướng bay
 	if state == State.LEAP and _leap_dir != Vector3.ZERO:
@@ -329,8 +339,15 @@ func _process_attack_hit() -> void:
 	elif target.has_method("damage"):
 		target.damage(attack_damage)
 
+@rpc("any_peer", "call_remote", "reliable")
+func server_take_damage(amount: float):
+	take_damage(amount) # Server nhận lệnh và trừ máu thật
 
 func take_damage(amount: float) -> void:
+	if not multiplayer.is_server():
+		# Client bắn trúng thì gửi RPC lên Server
+		server_take_damage.rpc_id(1, amount)
+		return
 	if state == State.DEAD:
 		return
 	health = maxf(health - amount, 0.0)

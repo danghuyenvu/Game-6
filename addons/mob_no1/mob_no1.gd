@@ -49,9 +49,18 @@ const CLIPS := {
 @export var animation_name: StringName
 @export var debug_logs: bool = true
 
-var health: float
+
 var target: Node3D
-var state: State = State.IDLE
+var state: State = State.IDLE:
+	set(value):
+		state = value
+		_process_animation_state() # Hàm này có sẵn trong file của bạn để play anim
+
+var health: float :
+	set(value):
+		health = value
+		if health <= 0:
+			state = State.DEAD
 var _state_time: float = 0.0
 var _attack_cooldown_left: float = 0.0
 var _attack_has_hit := false
@@ -79,6 +88,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_process_animation_state()
+	if not multiplayer.is_server():
+		return
 	if state == State.DEAD:
 		_process_dead(delta)
 		move_and_slide()
@@ -93,7 +105,6 @@ func _physics_process(delta: float) -> void:
 
 	_state_time += delta
 	_update_state()
-	_process_animation_state()
 
 	match state:
 		State.CHASE, State.CRAWLING:
@@ -275,8 +286,15 @@ func _process_attack_hit() -> void:
 	elif target.has_method("damage"):
 		target.damage(attack_damage)
 
-
+@rpc("any_peer", "call_remote", "reliable")
+func server_take_damage(amount: float):
+	take_damage(amount) # Server nhận lệnh và trừ máu thật
+	
 func take_damage(amount: float) -> void:
+	if not multiplayer.is_server():
+		# Client bắn trúng thì gửi RPC lên Server
+		server_take_damage.rpc_id(1, amount)
+		return
 	if state == State.DEAD: return
 	health = maxf(health - amount, 0.0)
 	if health <= 0.0:
