@@ -104,7 +104,7 @@ func _physics_process(delta: float) -> void:
 
 	_attack_cooldown_left = maxf(_attack_cooldown_left - delta, 0.0)
 	_state_time += delta
-
+	
 	_refresh_target()
 	_update_state()
 	_tick_animation()

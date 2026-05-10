@@ -113,14 +113,25 @@ func sync_head_pitch(pitch: float):
 @rpc("any_peer", "call_remote", "reliable")
 func request_shoot():
 	if not multiplayer.is_server(): return
-	var weapon = weapon_manager.get_current_weapon()
-	if weapon: weapon.shoot()
+	print("pass this ")
+	# Server thực hiện bắn trên instance của Player này tại Server
+	action_shoot()
+	
+	# Báo cho các máy khác (Player 1, Player 3...) thấy Player 2 bắn
 	confirm_shoot.rpc()
-
+	
+	
+func action_shoot():
+	if weapon_manager:
+		var weapon = weapon_manager.get_current_weapon()
+		if weapon:
+			weapon.shoot()
 # Thành:
-@rpc("any_peer", "call_local", "reliable")
+@rpc("call_remote", "reliable")
 func confirm_shoot():
-	pass
+	# Không chạy lại trên máy người đã bắn (vì đã chạy ở bước 1)
+	if is_multiplayer_authority(): return
+	action_shoot()
 
 @rpc("any_peer", "call_remote", "reliable")
 func request_grab(item_path: NodePath):
@@ -138,10 +149,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		release_mouse()
 
 	if Input.is_action_just_pressed("shoot"):
-		if multiplayer.is_server():
-			request_shoot()
-		else:
-			request_shoot.rpc_id(1)
+		# 1. Bắn ngay lập tức trên máy mình (Client-side Prediction)
+		action_shoot()
+		# 2. Gửi lệnh lên Server để xử lý thực tế
+		request_shoot.rpc()
+		#if multiplayer.is_server():
+			#request_shoot()
+		#else:
+			#request_shoot.rpc_id(1)
 	if Input.is_action_just_pressed("reload"):
 		var weapon = weapon_manager.get_current_weapon()
 		if weapon:
