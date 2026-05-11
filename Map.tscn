@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://doaikgv7qktff"]
 
 [ext_resource type="PackedScene" uid="uid://qr8qklyxdv62" path="res://ground/ground_1.glb" id="1_6skux"]
+[ext_resource type="Script" uid="uid://c2bhcf3h27dop" path="res://map_multiplayer.gd" id="1_mapmp"]
 [ext_resource type="Texture2D" uid="uid://bpci128crlocf" path="res://Sky/ChatGPT Image May 8, 2026, 01_06_52 AM.png" id="1_n5say"]
 [ext_resource type="PackedScene" uid="uid://c3pwaba8h7r75" path="res://ground/ground_2.glb" id="2_rox04"]
 [ext_resource type="PackedScene" uid="uid://0mkydl8gy0tl" path="res://3d models/Streets/A bridge/Calles4.tscn" id="6_brrwk"]
@@ -140,6 +141,7 @@
 [ext_resource type="PackedScene" uid="uid://dvqqqkgbni8gj" path="res://3d models/Misc/metal_board_hori.tscn" id="137_tk7sp"]
 [ext_resource type="PackedScene" uid="uid://c8nskpb00pa0v" path="res://3d models/Misc/wall_spiked.tscn" id="138_7cx14"]
 [ext_resource type="PackedScene" uid="uid://b8c3e82evo1ow" path="res://3d models/Misc/metal_barricade.tscn" id="139_ttpp1"]
+[ext_resource type="PackedScene" uid="uid://d123u3oblg0t8" path="res://Spawner.tscn" id="139_umkgv"]
 [ext_resource type="PackedScene" uid="uid://dp6omywktv71o" path="res://3d models/Misc/metal_board.tscn" id="140_vibqx"]
 [ext_resource type="PackedScene" uid="uid://7ueilmsrnqxl" path="res://3d models/Misc/metal_board_vert.tscn" id="141_go07c"]
 [ext_resource type="PackedScene" uid="uid://dplwvyswbkstq" path="res://3d models/Misc/Ladder.fbx" id="142_8rp7r"]
@@ -250,6 +252,9 @@ size = Vector3(4.4092407, 4.247925, 4.0929565)
 size = Vector3(3.8751526, 4.671753, 6.5232544)
 
 [node name="Node3D" type="Node3D" unique_id=598120620]
+script = ExtResource("1_mapmp")
+
+[node name="Players" type="Node3D" parent="." unique_id=1665214704]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2017992248]
 environment = SubResource("Environment_28i2f")
@@ -12413,7 +12418,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 41.9
 [node name="BigPistol" parent="Buildings" unique_id=185814543 instance=ExtResource("86_m8oqf")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 41.514244, 3.5996902, -40.29179)
 
-[node name="House 2 c3" parent="Buildings" unique_id=1526859255 instance=ExtResource("77_xtowc")]
+[node name="House 2 c3" parent="Buildings" unique_id=2144511579 instance=ExtResource("77_xtowc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.57215, 1.9116786, -9.057051)
 
 [node name="House 2 d2" parent="Buildings" unique_id=1214905407 instance=ExtResource("79_j7jxj")]
@@ -16135,6 +16140,9 @@ transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 2, 0
 
 [node name="wall_concrete_metal2" parent="." unique_id=1331937689 instance=ExtResource("139_ttpp1")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, -38)
+
+[node name="mobspawn" parent="." unique_id=187067550 instance=ExtResource("139_umkgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56061363, 23.150919, 6.5637817)
 
 [connection signal="body_entered" from="PistolZone/Area3D" to="PistolZone/Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="PistolZone/Area3D" to="PistolZone/Area3D" method="_on_body_exited"]

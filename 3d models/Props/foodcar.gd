@@ -32,6 +32,8 @@ func spawn_items() -> void:
 	var roll = items.pick_random()
 	# spawn item
 	spawned_item = roll["scene"].instantiate()
+	# Add to scene before touching global_transform
+	get_tree().current_scene.add_child(spawned_item)
 	var offset = Vector3(
 		0.0,
 		0.3,
@@ -40,7 +42,6 @@ func spawn_items() -> void:
 	var base_coord = global_transform.origin
 	spawned_item.global_transform.origin = base_coord + offset
 	
-	get_tree().current_scene.add_child(spawned_item)
 	print("Spawning:", spawned_item, "at", global_transform.origin)
 	
 	spawned_item.tree_exited.connect(func(): spawned_item = null)

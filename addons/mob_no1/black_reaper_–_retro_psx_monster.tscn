@@ -11,6 +11,23 @@ height = 2.8
 height = 6.0
 radius = 35.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v5opa"]
+properties/0/path = NodePath(".:global_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:health")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:state")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:global_rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:_state_time")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
 [node name="MobNo1" type="CharacterBody3D" unique_id=954073975 groups=["mob"]]
 script = ExtResource("1_ai")
 
@@ -35,3 +52,6 @@ target_desired_distance = 0.7
 avoidance_enabled = true
 height = 2.5
 radius = 0.6
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1595025947]
+replication_config = SubResource("SceneReplicationConfig_v5opa")
