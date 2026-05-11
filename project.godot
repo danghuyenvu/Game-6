@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Tester"
-run/main_scene="uid://doaikgv7qktff"
+run/main_scene="uid://cowrr6ifwd27d"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

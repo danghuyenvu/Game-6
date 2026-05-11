@@ -55,8 +55,7 @@ func _ready() -> void:
 		set_multiplayer_authority(peer_id)
 	
 	check_input_mappings()
-	if multiplayer.has_multiplayer_peer():
-		_setup_authority()
+	call_deferred("apply_authority")
 	#check_input_mappings()
 	#look_rotation.y = rotation.y
 	#look_rotation.x = head.rotation.x
@@ -64,9 +63,17 @@ func _ready() -> void:
 	#call_deferred("_setup_authority")
 
 func apply_authority():
+	if not multiplayer.has_multiplayer_peer():
+		capture_mouse()
+		$Head/Camera3D.current = true
+		$CanvasLayer.visible = true
+		set_physics_process(true)
+		set_process_unhandled_input(true)
+		return
+
 	_authority_applied = false  # reset flag để apply_authority có thể chạy lại
 	_setup_authority()
-	print("apply_authority | my id: ", multiplayer.get_unique_id(), " | authority: ", get_multiplayer_authority(), " | is_auth: ", is_multiplayer_authority())
+	print("apply_authority | my id: ", _safe_peer_id(), " | authority: ", get_multiplayer_authority(), " | is_auth: ", is_multiplayer_authority())
 	if is_multiplayer_authority():
 		capture_mouse()
 		$Head/Camera3D.current = true
@@ -78,7 +85,7 @@ func apply_authority():
 		set_physics_process(false)
 
 func _setup_authority():
-	print("_setup_authority | my id: ", multiplayer.get_unique_id(), " | authority: ", get_multiplayer_authority(), " | is_auth: ", is_multiplayer_authority())
+	print("_setup_authority | my id: ", _safe_peer_id(), " | authority: ", get_multiplayer_authority(), " | is_auth: ", is_multiplayer_authority())
 	#if _authority_applied:
 		#return
 	#_authority_applied = true
@@ -112,7 +119,7 @@ func sync_head_pitch(pitch: float):
 
 @rpc("any_peer", "call_remote", "reliable")
 func request_shoot():
-	if not multiplayer.is_server(): return
+	if not _is_server_context(): return
 	print("pass this ")
 	# Server thực hiện bắn trên instance của Player này tại Server
 	action_shoot()
@@ -133,9 +140,48 @@ func confirm_shoot():
 	if is_multiplayer_authority(): return
 	action_shoot()
 
+func equip_weapon_slot(slot: StringName) -> void:
+	if not weapon_manager:
+		return
+	if weapon_manager.get_current_slot() == slot:
+		return
+
+	var update_local_ui := is_multiplayer_authority()
+	if not weapon_manager.equip_slot(slot, update_local_ui):
+		return
+
+	if not multiplayer.has_multiplayer_peer():
+		return
+
+	if _is_server_context():
+		confirm_equip_slot.rpc(slot)
+	else:
+		request_equip_slot.rpc_id(1, slot)
+
+@rpc("any_peer", "call_remote", "reliable")
+func request_equip_slot(slot: StringName) -> void:
+	if not _is_server_context():
+		return
+
+	var sender_id := multiplayer.get_remote_sender_id()
+	if sender_id != get_multiplayer_authority():
+		return
+
+	confirm_equip_slot.rpc(slot)
+	_apply_replicated_equip_slot(slot)
+
+@rpc("any_peer", "call_remote", "reliable")
+func confirm_equip_slot(slot: StringName) -> void:
+	_apply_replicated_equip_slot(slot)
+
+func _apply_replicated_equip_slot(slot: StringName) -> void:
+	if not weapon_manager:
+		return
+	weapon_manager.equip_slot(slot, is_multiplayer_authority())
+
 @rpc("any_peer", "call_remote", "reliable")
 func request_grab(item_path: NodePath):
-	if not multiplayer.is_server(): return
+	if not _is_server_context(): return
 	var item = get_node_or_null(item_path)
 	if item: grab_item(item)
 
@@ -166,15 +212,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		if nearby_shop != null:
 			nearby_shop.open_menu()
 		elif nearby_items.size() > 0:
-			if multiplayer.is_server():
+			if _is_server_context():
 				request_grab(nearby_items[0].get_path())
 			else:
 				request_grab.rpc_id(1, nearby_items[0].get_path())
 
-	if Input.is_key_pressed(KEY_1):
-		weapon_manager.equip_primary()
-	if Input.is_key_pressed(KEY_2):
-		weapon_manager.equip_secondary()
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_1:
+			equip_weapon_slot(&"primary")
+		elif event.keycode == KEY_2:
+			equip_weapon_slot(&"secondary")
 		
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
@@ -306,6 +353,25 @@ func capture_mouse():
 func release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
+
+func _has_active_multiplayer_peer() -> bool:
+	var peer := multiplayer.multiplayer_peer
+	if peer == null:
+		return false
+	return peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
+
+func _is_server_context() -> bool:
+	var peer := multiplayer.multiplayer_peer
+	if peer == null:
+		return true
+	if peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		return false
+	return multiplayer.is_server()
+
+func _safe_peer_id() -> int:
+	if not _has_active_multiplayer_peer():
+		return 0
+	return multiplayer.get_unique_id()
 
 func check_input_mappings():
 	if can_move and not InputMap.has_action(input_left):

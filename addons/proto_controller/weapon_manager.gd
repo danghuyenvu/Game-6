@@ -3,7 +3,7 @@ class_name WeaponManager
 
 @onready var primary_slot: Node3D = $PrimarySlot
 @onready var secondary_slot: Node3D = $SecondarySlot
-@onready var crosshair = get_node("/root/Node3D/ProtoController/CanvasLayer/Crosshair")
+@onready var crosshair = owner.get_node_or_null("CanvasLayer/Crosshair") if owner else null
 
 # ----------------------------
 # DEV OVERRIDE (testing only)
@@ -14,6 +14,7 @@ class_name WeaponManager
 var primary_weapon: WeaponBase = null
 var secondary_weapon: WeaponBase = null
 var current_weapon: WeaponBase = null
+var current_slot: StringName = &""
 
 
 func _ready():
@@ -51,36 +52,34 @@ func _init_weapons():
 	# START WITH SECONDARY ONLY
 	# ----------------------------
 	if secondary_weapon:
-		switch_weapon(secondary_weapon)
-
-
-# =====================================================
-# INPUT
-# =====================================================
-func _input(event):
-	if event is InputEventKey and event.pressed:
-
-		if event.keycode == KEY_1:
-			equip_primary()
-
-		if event.keycode == KEY_2:
-			equip_secondary()
+		equip_secondary()
 
 
 # =====================================================
 # EQUIP LOGIC
 # =====================================================
 func equip_primary():
-	if primary_weapon == null:
-		return
-	switch_weapon(primary_weapon)
+	equip_slot(&"primary")
 
 
 func equip_secondary():
-	if secondary_weapon == null:
-		return
+	equip_slot(&"secondary")
 
-	switch_weapon(secondary_weapon)
+
+func equip_slot(slot: StringName, update_local_ui := true) -> bool:
+	match slot:
+		&"primary":
+			if primary_weapon == null:
+				return false
+			switch_weapon(primary_weapon, slot, update_local_ui)
+			return true
+		&"secondary":
+			if secondary_weapon == null:
+				return false
+			switch_weapon(secondary_weapon, slot, update_local_ui)
+			return true
+
+	return false
 
 
 # =====================================================
@@ -99,49 +98,58 @@ func pickup_weapon(weapon: WeaponBase):
 
 func _set_primary(weapon: WeaponBase):
 
-	if primary_weapon:
+	if primary_weapon and primary_weapon != weapon:
 		primary_weapon.queue_free()
 
 	primary_weapon = weapon
-	primary_slot.add_child(primary_weapon)
+	if weapon.get_parent() != primary_slot:
+		if weapon.get_parent():
+			weapon.get_parent().remove_child(weapon)
+		primary_slot.add_child(primary_weapon)
 	primary_weapon.unequip()
 
 
 func _set_secondary(weapon: WeaponBase):
 
-	if secondary_weapon:
+	if secondary_weapon and secondary_weapon != weapon:
 		secondary_weapon.queue_free()
 
 	secondary_weapon = weapon
-	if weapon.get_parent():
-		weapon.get_parent().remove_child(weapon)
-	secondary_slot.add_child(weapon)
+	if weapon.get_parent() != secondary_slot:
+		if weapon.get_parent():
+			weapon.get_parent().remove_child(weapon)
+		secondary_slot.add_child(weapon)
 	secondary_weapon.unequip()
 
 
 # =====================================================
 # SWITCH CORE
 # =====================================================
-func switch_weapon(new_weapon: WeaponBase):
+func switch_weapon(new_weapon: WeaponBase, slot := &"", update_local_ui := true):
 
 	if new_weapon == null:
 		return
 
-	if new_weapon == current_weapon:
+	if new_weapon == current_weapon and slot == current_slot:
 		return
 
 	if current_weapon:
 		current_weapon.unequip()
 
 	current_weapon = new_weapon
+	current_slot = slot
 	current_weapon.equip()
 
-	if current_weapon.has_method("update_hud"):
+	if update_local_ui and current_weapon.has_method("update_hud"):
 		current_weapon.update_hud()
 
-	if crosshair:
+	if update_local_ui and crosshair:
 		crosshair.set_weapon(current_weapon)
 
 
 func get_current_weapon() -> WeaponBase:
 	return current_weapon
+
+
+func get_current_slot() -> StringName:
+	return current_slot

@@ -100,7 +100,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_tick_animation()
-	if not multiplayer.is_server():
+	if not _is_server_context():
 		return
 	if state == State.DEAD:
 		_process_dead(delta)
@@ -344,9 +344,10 @@ func server_take_damage(amount: float):
 	take_damage(amount) # Server nhận lệnh và trừ máu thật
 
 func take_damage(amount: float) -> void:
-	if not multiplayer.is_server():
+	if not _is_server_context():
 		# Client bắn trúng thì gửi RPC lên Server
-		server_take_damage.rpc_id(1, amount)
+		if _can_send_rpc_to_server():
+			server_take_damage.rpc_id(1, amount)
 		return
 	if state == State.DEAD:
 		return
@@ -417,3 +418,21 @@ func _find_anim_player(node: Node) -> AnimationPlayer:
 		if found:
 			return found
 	return null
+
+
+func _is_server_context() -> bool:
+	var peer := multiplayer.multiplayer_peer
+	if peer == null:
+		return true
+	if peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		return false
+	return multiplayer.is_server()
+
+
+func _can_send_rpc_to_server() -> bool:
+	var peer := multiplayer.multiplayer_peer
+	if peer == null:
+		return false
+	if peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		return false
+	return not multiplayer.is_server()

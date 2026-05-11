@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://doaikgv7qktff"]
 
 [ext_resource type="PackedScene" uid="uid://qr8qklyxdv62" path="res://ground/ground_1.glb" id="1_6skux"]
+[ext_resource type="Script" uid="uid://c2bhcf3h27dop" path="res://map_multiplayer.gd" id="1_mapmp"]
 [ext_resource type="Texture2D" uid="uid://bpci128crlocf" path="res://Sky/ChatGPT Image May 8, 2026, 01_06_52 AM.png" id="1_n5say"]
 [ext_resource type="PackedScene" uid="uid://c3pwaba8h7r75" path="res://ground/ground_2.glb" id="2_rox04"]
 [ext_resource type="PackedScene" uid="uid://0mkydl8gy0tl" path="res://3d models/Streets/A bridge/Calles4.tscn" id="6_brrwk"]
@@ -129,6 +130,7 @@
 [ext_resource type="PackedScene" uid="uid://lgxqhxjjwx14" path="res://3d models/Props/light_double.tscn" id="126_j5v5v"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="128_iepg8"]
 [ext_resource type="PackedScene" uid="uid://cjgyykvw670ug" path="res://3d models/Misc/wall_brick.tscn" id="129_k5ip7"]
+[ext_resource type="PackedScene" uid="uid://ckcbgvwrflqh7" path="res://addons/mob_no1/black_reaper_–_retro_psx_monster.tscn" id="129_mob1"]
 [ext_resource type="PackedScene" uid="uid://bfkjtp7yqyswh" path="res://3d models/Misc/wall_brick_hole.tscn" id="130_8rp7r"]
 [ext_resource type="PackedScene" uid="uid://nyoue40hc47y" path="res://3d models/Misc/wall_door_unblocked.tscn" id="131_y0tyt"]
 [ext_resource type="PackedScene" uid="uid://cbn8t0s2bj4i7" path="res://3d models/Misc/wall_small_window.tscn" id="132_ebnrs"]
@@ -250,6 +252,9 @@ size = Vector3(4.4092407, 4.247925, 4.0929565)
 size = Vector3(3.8751526, 4.671753, 6.5232544)
 
 [node name="Node3D" type="Node3D" unique_id=598120620]
+script = ExtResource("1_mapmp")
+
+[node name="Players" type="Node3D" parent="." unique_id=1665214704]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2017992248]
 environment = SubResource("Environment_28i2f")
@@ -15786,9 +15791,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.986053, 0.30724025, 0.2189
 
 [node name="fence 54" parent="HomeZone" unique_id=1116856488 instance=ExtResource("87_q3oog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.986053, 0.30724025, -0.4601596)
+
 [node name="Streetlights" type="Node3D" parent="." unique_id=1835708925]
-[node name="Blood_Juggernaut" parent="." unique_id=998641636 instance=ExtResource("172_5vtos")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 24)
 
 [node name="StreetLights#Light Double" parent="Streetlights" unique_id=1571922907 instance=ExtResource("126_j5v5v")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 18.248974, 2.843502, 1.4202893)
@@ -16137,6 +16141,9 @@ transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 2, 0
 [node name="wall_concrete_metal2" parent="." unique_id=1331937689 instance=ExtResource("139_ttpp1")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, -38)
 
+[node name="mobspawn" parent="." unique_id=187067550 instance=ExtResource("139_umkgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56061363, 23.150919, 6.5637817)
+
 [connection signal="body_entered" from="PistolZone/Area3D" to="PistolZone/Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="PistolZone/Area3D" to="PistolZone/Area3D" method="_on_body_exited"]
 [connection signal="body_entered" from="SMGZone/Area3D" to="SMGZone/Area3D" method="_on_body_entered"]
@@ -16147,6 +16154,3 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 
 [connection signal="body_exited" from="SGZone/Area3D" to="SGZone/Area3D" method="_on_body_exited"]
 [connection signal="body_entered" from="ARZone/Area3D" to="ARZone/Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="ARZone/Area3D" to="ARZone/Area3D" method="_on_body_exited"]
-
-[node name="mobspawn" parent="." unique_id=187067550 instance=ExtResource("139_umkgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56061363, 23.150919, 6.5637817)

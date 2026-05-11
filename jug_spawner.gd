@@ -11,7 +11,7 @@ var current_mob_count: int = 0
 
 func _ready():
 	# CỰC KỲ QUAN TRỌNG: Chỉ Server mới chạy logic đếm giờ và sinh quái
-	if not multiplayer.is_server():
+	if not _is_server_context():
 		return
 
 	# 1. Thiết lập MultiplayerSpawner
@@ -46,3 +46,11 @@ func spawn_mob():
 	# Add child với tham số 'true' để đồng bộ tên node qua mạng
 	add_child(mob, true)
 	current_mob_count += 1
+
+func _is_server_context() -> bool:
+	var peer := multiplayer.multiplayer_peer
+	if peer == null:
+		return true
+	if peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		return false
+	return multiplayer.is_server()
