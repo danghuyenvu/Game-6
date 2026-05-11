@@ -85,15 +85,34 @@ func equip_slot(slot: StringName, update_local_ui := true) -> bool:
 # =====================================================
 # PICKUP SYSTEM
 # =====================================================
-func pickup_weapon(weapon: WeaponBase):
+func find_weapon(id: String) -> WeaponBase:
+
+	for child in primary_slot.get_children():
+		if child is WeaponBase and child.weapon_id == id:
+			return child
+
+	for child in secondary_slot.get_children():
+		if child is WeaponBase and child.weapon_id == id:
+			return child
+
+	return null
+
+func pickup_weapon(weapon_id: String):
+
+	var weapon := find_weapon(weapon_id)
 
 	if weapon == null:
+		print("Weapon not found:", weapon_id)
 		return
 
-	if weapon.weapon_id == "pistol" or weapon.weapon_id == "base" or weapon.weapon_id == "magnum" or weapon.weapon_id == "revolver":
-		_set_secondary(weapon)
-	else:
+	var parent := weapon.get_parent()
+
+	if parent == primary_slot:
 		_set_primary(weapon)
+	elif parent == secondary_slot:
+		_set_secondary(weapon)
+
+	switch_weapon(weapon)
 
 
 func _set_primary(weapon: WeaponBase):

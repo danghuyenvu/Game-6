@@ -4,7 +4,7 @@ extends WeaponBase
 @onready var hud = get_node("/root/Node3D/ProtoController/CanvasLayer/HUD")
 
 const MAG_SIZE := 15
-const MAX_RESERVE := 75
+const MAX_RESERVE := 120
 const FIRE_RATE := 0.75
 
 var current_ammo := MAG_SIZE
@@ -30,6 +30,10 @@ func equip():
 func unequip():
 	super.unequip()
 
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	reserve_ammo = MAX_RESERVE
+	update_hud()
 
 # ----------------------------
 # SHOOT

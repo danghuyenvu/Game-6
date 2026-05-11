@@ -5,7 +5,7 @@ class_name LeverShotgun
 @onready var hud = get_node("/root/Node3D/ProtoController/CanvasLayer/HUD")
 
 const MAG_SIZE := 10
-const MAX_RESERVE := 60
+const MAX_RESERVE := 90
 const FIRE_RATE := 0.45
 const PELLETS := 12
 
@@ -20,6 +20,11 @@ func _ready():
 	weapon_id = "lever"
 	weapon_damage = 12.5
 	weapon_range = 250
+	
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	reserve_ammo = MAX_RESERVE
+	update_hud()
 
 
 # ----------------------------

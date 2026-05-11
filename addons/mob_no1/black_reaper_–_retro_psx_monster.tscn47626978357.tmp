@@ -10,48 +10,8 @@ height = 1.6905518
 height = 6.0
 radius = 35.0
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v5opa"]
-properties/0/path = NodePath(".:global_position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:health")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:state")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:global_rotation")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:_state_time")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-
-[node name="MobNo1" type="CharacterBody3D" unique_id=954073975 groups=["mob"]]
-
-collision_layer = 4
+[node name="MobNo1" type="RigidBody3D" unique_id=664067768 groups=["mob"]]
 script = ExtResource("1_ai")
-player_group = null
-target_path = null
-aggro_range = null
-lose_aggro_range = null
-attack_range = null
-move_speed = null
-crawl_speed = null
-turn_speed = null
-gravity_multiplier = null
-step_height = null
-use_navigation = null
-navigation_agent_path = null
-max_health = null
-attack_damage = null
-attack_hit_at = null
-attack_cooldown = null
-crawl_under_health_ratio = null
-despawn_after_death = null
-animation_player_path = null
-animation_name = null
-debug_logs = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1914877872]
 transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 0.3825818, 0)
@@ -74,6 +34,3 @@ target_desired_distance = 0.7
 avoidance_enabled = true
 height = 2.5
 radius = 0.6
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1595025947]
-replication_config = SubResource("SceneReplicationConfig_v5opa")

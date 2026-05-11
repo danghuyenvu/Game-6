@@ -43,6 +43,8 @@ var freeflying : bool = false
 
 var jump_held := false
 var nearby_items: Array = []
+var nearby_ammo_zones: Array = []
+var nearby_weapon_box: Node = null
 var nearby_shop: Node = null
 var _authority_applied: bool = false
 
@@ -209,6 +211,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if weapon:
 			weapon.reload()
 	# interact — only handle once (removed duplicate block)
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_1:
+			equip_weapon_slot(&"primary")
+		elif event.keycode == KEY_2:
+			equip_weapon_slot(&"secondary")
+		
 	if Input.is_action_just_pressed("interact"):
 		if nearby_shop != null:
 			nearby_shop.open_menu()
@@ -217,13 +225,23 @@ func _unhandled_input(event: InputEvent) -> void:
 				request_grab(nearby_items[0].get_path())
 			else:
 				request_grab.rpc_id(1, nearby_items[0].get_path())
+			health += 15
+			if hud and hud.has_method("update_health"):
+				hud.update_health(health)
 
-	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_1:
-			equip_weapon_slot(&"primary")
-		elif event.keycode == KEY_2:
-			equip_weapon_slot(&"secondary")
-		
+
+		elif nearby_ammo_zones.size() > 0:
+			nearby_ammo_zones[0].apply_effect(self)
+
+		elif nearby_weapon_box != null:
+			nearby_weapon_box.roll_weapon()
+
+				
+	if Input.is_action_just_pressed("interact_secondary"):
+		if is_instance_valid(nearby_weapon_box):
+			nearby_weapon_box.try_take_weapon(self)
+	
+	# Look around
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
 
@@ -438,10 +456,14 @@ func die():
 	# optional reset/reload
 	get_tree().reload_current_scene()
 	
-func refill_ammo(ammo_type):
-	weapon_manager.primary_weapon.refill(ammo_type)
-	weapon_manager.secondary_weapon.refill(ammo_type)
+func refill_ammo(ammo_type: String) -> void:
+	var primary = weapon_manager.primary_weapon
+	var secondary = weapon_manager.secondary_weapon
+	if is_instance_valid(primary) and primary.weapon_type == ammo_type:
+		primary.refill()
+	if is_instance_valid(secondary) and secondary.weapon_type == ammo_type:
+		secondary.refill()
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	pass # Replace with function body.
+	pass

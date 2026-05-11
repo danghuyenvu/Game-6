@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ckcbgvwrflqh7"]
+
+[ext_resource type="Script" uid="uid://ck4gwf7cd8o0p" path="res://addons/mob_no1/mob_no1.gd" id="1_ai"]
+[ext_resource type="PackedScene" uid="uid://bqb2te8iiij16" path="res://addons/BLACK REAPER/BLACK REAPER – Retro PSX Monster.fbx" id="2_model"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mob"]
+radius = 0.65
+height = 2.8
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_aggro"]
+height = 6.0
+radius = 35.0
+
+[node name="MobNo1" type="CharacterBody3D" unique_id=954073975 groups=["mob"]]
+script = ExtResource("1_ai")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1914877872]
+transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 0.5533081, 0)
+shape = SubResource("CapsuleShape3D_mob")
+
+[node name="AggroArea" type="Area3D" parent="." unique_id=1154318400]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AggroArea" unique_id=535704413]
+transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 3, 0)
+shape = SubResource("CylinderShape3D_aggro")
+
+[node name="Visual" parent="." unique_id=1446150350 instance=ExtResource("2_model")]
+transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 0.059906363, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=298152583]
+path_desired_distance = 0.7
+target_desired_distance = 0.7
+avoidance_enabled = true
+height = 2.5
+radius = 0.6

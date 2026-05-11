@@ -15,15 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://4nywpgl11701" path="res://Revolver.tscn" id="8_x436g"]
 [ext_resource type="PackedScene" uid="uid://qxc6hm2qgjrp" path="res://ar3.tscn" id="9_f4vau"]
 [ext_resource type="PackedScene" uid="uid://bi7intdv0w07m" path="res://Double.tscn" id="9_q1ipm"]
-[ext_resource type="PackedScene" uid="uid://l5vmrvsyrr7n" path="res://smg1.tscn" id="10_3o3af"]
-[ext_resource type="Script" uid="uid://citr18pwm78ks" path="res://smg_1.gd" id="11_ymooi"]
-[ext_resource type="PackedScene" uid="uid://dfgys8item7yj" path="res://smg2.tscn" id="12_6s64k"]
-[ext_resource type="Script" uid="uid://16jfeiycdir4" path="res://smg_2.gd" id="13_xqi1m"]
 [ext_resource type="PackedScene" uid="uid://cq32gcxxqc671" path="res://ass_rif1.tscn" id="14_cisnj"]
-[ext_resource type="PackedScene" uid="uid://dtn5oaadsl3mu" path="res://smg3.tscn" id="14_q1enc"]
-[ext_resource type="Script" uid="uid://b6yfpyn6086xt" path="res://smg_3.gd" id="15_mda26"]
-[ext_resource type="PackedScene" uid="uid://bgnwipaw6svpq" path="res://smg4.tscn" id="16_pn0jt"]
-[ext_resource type="Script" uid="uid://buxgr2bojij3l" path="res://smg_4.gd" id="17_mda26"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iof21"]
 albedo_color = Color(0.91806, 0.575202, 0.222449, 1)
@@ -38,36 +30,28 @@ height = 3.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rk7u"]
 bg_color = Color(0.6, 1, 0.6, 1)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_q1ipm"]
-properties/0/path = NodePath(".:global_position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:global_rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
-[node name="ProtoController" type="CharacterBody3D" unique_id=1240680387]
+[node name="ProtoController" type="CharacterBody3D" unique_id=1280418318]
 script = ExtResource("1_ucva2")
 
-[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1341275934]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=66834053]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.5305128, 0)
 material_override = SubResource("StandardMaterial3D_iof21")
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_ucva2")
 
-[node name="Collider" type="CollisionShape3D" parent="." unique_id=925077803]
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=1655360589]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.54895914, 0)
 shape = SubResource("CapsuleShape3D_g2uji")
 
-[node name="Head" type="Node3D" parent="." unique_id=117991769]
+[node name="Head" type="Node3D" parent="." unique_id=1631519486]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7499409, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1657220406]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1526863159]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03700292, -0.0080343485)
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" unique_id=2109098121 node_paths=PackedStringArray("dev_primary")]
+[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" unique_id=1280893463 node_paths=PackedStringArray("dev_primary")]
 script = ExtResource("2_ujot4")
-dev_primary = NodePath("PrimarySlot/SMG4")
+dev_primary = NodePath("PrimarySlot/AUG")
 
 [node name="PrimarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=1856896201]
 
@@ -105,26 +89,6 @@ weapon_type = "AR"
 transform = Transform3D(-0.15, 0, -2.2649372e-08, 0, 0.15, 0, 2.2649372e-08, 0, -0.15, 0.13076097, -0.093767285, -0.13901909)
 visible = false
 weapon_type = "AR"
-
-[node name="SMG1" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1471503497 instance=ExtResource("10_3o3af")]
-transform = Transform3D(-0.1, 0, -8.742278e-09, 0, 0.1, 0, 8.742278e-09, 0, -0.1, 0.14306621, -0.17003006, -0.17372388)
-visible = false
-script = ExtResource("11_ymooi")
-
-[node name="SMG2" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=790682180 instance=ExtResource("12_6s64k")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.10004625, -0.1301943, -0.18919605)
-visible = false
-script = ExtResource("13_xqi1m")
-
-[node name="SMG3" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=306950646 instance=ExtResource("14_q1enc")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.1266082, -0.09701711, -0.14165819)
-visible = false
-script = ExtResource("15_mda26")
-
-[node name="SMG4" parent="Head/Camera3D/WeaponManager/PrimarySlot" unique_id=1123762342 instance=ExtResource("16_pn0jt")]
-transform = Transform3D(-0.1, 0, -8.742278e-09, 0, 0.1, 0, 8.742278e-09, 0, -0.1, 0.09400597, -0.1243875, -0.14481732)
-visible = false
-script = ExtResource("17_mda26")
 
 [node name="SecondarySlot" type="Node3D" parent="Head/Camera3D/WeaponManager" unique_id=1848784409]
 
@@ -254,6 +218,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 grow_horizontal = 0
 grow_vertical = 0
+text = "10/50"
 
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD" unique_id=1283636437]
 layout_mode = 0
@@ -271,6 +236,3 @@ offset_top = 621.5
 offset_right = 145.0
 offset_bottom = 644.5
 text = "100"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=701023484]
-replication_config = SubResource("SceneReplicationConfig_q1ipm")

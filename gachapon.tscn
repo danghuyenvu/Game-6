@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://kf4wmv7pgntt"]
+
+[ext_resource type="Script" uid="uid://10kkwhltotb6" path="res://gachapon.gd" id="1_ht8qh"]
+[ext_resource type="PackedScene" uid="uid://co6rvgiau1cyd" path="res://3d models/Items/Armas/grande_box.tscn" id="2_tc2mu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jykir"]
+size = Vector3(2, 2, 2)
+
+[node name="Node3D" type="Area3D" unique_id=964253810]
+script = ExtResource("1_ht8qh")
+
+[node name="Grande box" parent="." unique_id=509467035 instance=ExtResource("2_tc2mu")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.082, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1737020518]
+shape = SubResource("BoxShape3D_jykir")
+
+[node name="PromptLabel3D" type="Label3D" parent="." unique_id=555176358]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.78462875, 0)
+billboard = 1

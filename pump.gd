@@ -5,7 +5,7 @@ class_name PumpShotgun
 @onready var hud = get_node("/root/Node3D/ProtoController/CanvasLayer/HUD")
 
 const MAG_SIZE := 10
-const MAX_RESERVE := 60
+const MAX_RESERVE := 90
 const FIRE_RATE := 0.35
 const PELLETS := 8
 
@@ -20,6 +20,11 @@ func _ready():
 	weapon_id = "pump"
 	weapon_damage = 20
 	weapon_range = 300
+	
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	reserve_ammo = MAX_RESERVE
+	update_hud()
 
 
 # ----------------------------

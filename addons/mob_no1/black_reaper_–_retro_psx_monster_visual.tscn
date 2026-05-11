@@ -8,7 +8,7 @@ radius = 12.547363
 
 [node name="BLACK REAPER – Retro PSX Monster" unique_id=1713716361 instance=ExtResource("1_7pj76")]
 
-[node name="Skeleton3D" parent="BLACK REAPER – Retro PSX Monster/Armature_005" parent_id_path=PackedInt32Array(1238711135) index="0" unique_id=397821400]
+[node name="Skeleton3D" parent="BLACK REAPER – Retro PSX Monster/Armature_005" index="0"]
 bones/0/rotation = Quaternion(-0.013268401, -0.0010434021, -0.009671114, 0.9998647)
 bones/1/rotation = Quaternion(0.033698574, 0.07586878, 0.9956948, -0.041232966)
 bones/2/rotation = Quaternion(-0.20627756, -0.081832476, -0.020235615, 0.9748557)
@@ -41,7 +41,7 @@ bones/29/rotation = Quaternion(0.080302306, -0.012304236, 0.06971299, 0.99425364
 bones/30/rotation = Quaternion(0.3957279, 0.05497106, -0.005853252, 0.91670245)
 bones/31/rotation = Quaternion(0.35035664, 0.10721946, -0.028104838, 0.9300347)
 
-[node name="mixamorig_LeftToe_End_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="0" unique_id=173904487]
+[node name="mixamorig_LeftToe_End_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="0"]
 transform = Transform3D(-0.88139147, 0.47162673, 0.026935998, 0.018286357, -0.022913568, 0.9995702, 0.47204015, 0.8815029, 0.011571714, 15.484165, 0.04261016, 10.47922)
 bone_idx = 5
 
@@ -52,7 +52,7 @@ transform = Transform3D(0.9999999, -5.5879354e-09, -5.9604645e-08, -5.9604645e-0
 shape = SubResource("CylinderShape3D_7pj76")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 
-[node name="mixamorig_RightToe_End_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="1" unique_id=1697955404]
+[node name="mixamorig_RightToe_End_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="1"]
 transform = Transform3D(-0.81694275, -0.5755048, -0.037427828, -0.02383271, -0.031152895, 0.9992303, -0.57622784, 0.8172053, 0.011734715, -23.432215, 0.0031555444, 12.096109)
 bone_idx = 10
 
@@ -63,11 +63,14 @@ transform = Transform3D(0.99453807, -0.104257286, 0.0049012504, -0.005347852, -0
 shape = SubResource("CylinderShape3D_7pj76")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 
-[node name="Cube" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="2" unique_id=743711332]
+[node name="Cube" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="2"]
 transform = Transform3D(0.5712462, 0.013131335, -0.8206733, -0.16204472, -0.97838676, -0.1284493, -0.8046233, 0.20636235, -0.55677235, 25.280825, 86.68434, 17.399843)
 bone_idx = 17
 
-[node name="mixamorig_LeftHandIndex4_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="3" unique_id=1205981110]
+[node name="Cube" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D/Cube" index="0"]
+lod_bias = 3.0
+
+[node name="mixamorig_LeftHandIndex4_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="3"]
 transform = Transform3D(0.233979, -0.5389254, 0.80920494, -0.88199204, -0.4678553, -0.056563728, 0.40907508, -0.70047826, -0.58479667, 18.062977, 69.065414, 14.82101)
 bone_idx = 21
 
@@ -79,7 +82,7 @@ transform = Transform3D(0.99643636, 0.02100756, 0.08170012, 0.08301011, -0.41636
 shape = SubResource("CylinderShape3D_7pj76")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 
-[node name="mixamorig_HeadTop_End_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="4" unique_id=247390243]
+[node name="mixamorig_HeadTop_End_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="4"]
 transform = Transform3D(0.9939465, -0.030876575, -0.10543738, 0.023263292, 0.9970831, -0.07268791, 0.107374184, 0.069795005, 0.9917657, 0.18347412, 163.85289, 2.808299)
 bone_idx = 24
 
@@ -91,7 +94,7 @@ transform = Transform3D(0.5595006, 0.8202229, -0.11918557, 0.66469324, -0.529935
 shape = SubResource("CylinderShape3D_7pj76")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 
-[node name="mixamorig_RightHandIndex4_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="5" unique_id=1376322120]
+[node name="mixamorig_RightHandIndex4_end" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="5"]
 transform = Transform3D(-0.10134619, 0.98988533, 0.09928048, -0.067590125, -0.10641432, 0.99202156, 0.99255323, 0.093827315, 0.07769098, -28.620213, 67.53354, 19.934658)
 bone_idx = 32
 
@@ -102,3 +105,7 @@ transform = Transform3D(0.7260405, 0.6825999, 0.08319898, -0.681826, 0.6988857, 
 transform = Transform3D(0.9964371, 0.021007493, 0.08170092, 0.08300954, -0.41636395, -0.9053992, 0.014999367, 0.90896094, -0.4166282, -2.2034874, -15.912609, 34.31601)
 shape = SubResource("CylinderShape3D_7pj76")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
+
+[node name="Cube_007" parent="BLACK REAPER – Retro PSX Monster/Armature_005/Skeleton3D" index="6"]
+lod_bias = 3.0
+ignore_occlusion_culling = true
