@@ -171,6 +171,8 @@
 [ext_resource type="PackedScene" uid="uid://duvel28lgr4k" path="res://FBX/AssaultRifle_03.fbx" id="169_5vtos"]
 [ext_resource type="PackedScene" uid="uid://c3l6jjsilhxal" path="res://FBX/AssaultRifleAmmo_Box.fbx" id="170_fnds1"]
 [ext_resource type="PackedScene" uid="uid://wylhwex7mxut" path="res://addons/mob_spawner.tscn" id="171_voc4j"]
+[ext_resource type="Script" uid="uid://boactdf4cndyh" path="res://Ammo_zone.gd" id="172_5vtos"]
+[ext_resource type="PackedScene" uid="uid://kf4wmv7pgntt" path="res://gachapon.tscn" id="173_fnds1"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ne152"]
 panorama = ExtResource("1_n5say")
@@ -233,6 +235,21 @@ size = Vector3(0.628, 0.2, 4)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vk0g2"]
 data = PackedVector3Array(-0.31399998, 0.099999994, 2, 0.31399998, 0.099999994, 2, -0.31399998, -0.099999994, 2, 0.31399998, 0.099999994, 2, 0.31399998, -0.099999994, 2, -0.31399998, -0.099999994, 2, 0.31399998, 0.099999994, -2, -0.31399998, 0.099999994, -2, 0.31399998, -0.099999994, -2, -0.31399998, 0.099999994, -2, -0.31399998, -0.099999994, -2, 0.31399998, -0.099999994, -2, 0.31399998, 0.099999994, 2, 0.31399998, 0.099999994, -2, 0.31399998, -0.099999994, 2, 0.31399998, 0.099999994, -2, 0.31399998, -0.099999994, -2, 0.31399998, -0.099999994, 2, -0.31399998, 0.099999994, -2, -0.31399998, 0.099999994, 2, -0.31399998, -0.099999994, -2, -0.31399998, 0.099999994, 2, -0.31399998, -0.099999994, 2, -0.31399998, -0.099999994, -2, 0.31399998, 0.099999994, 2, -0.31399998, 0.099999994, 2, 0.31399998, 0.099999994, -2, -0.31399998, 0.099999994, 2, -0.31399998, 0.099999994, -2, 0.31399998, 0.099999994, -2, -0.31399998, -0.099999994, 2, 0.31399998, -0.099999994, 2, -0.31399998, -0.099999994, -2, 0.31399998, -0.099999994, 2, 0.31399998, -0.099999994, -2, -0.31399998, -0.099999994, -2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fnds1"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5vtos"]
+size = Vector3(2, 2, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xdrpe"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_swcdo"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c6q86"]
+size = Vector3(2, 2, 2.5)
 
 [node name="Node3D" type="Node3D" unique_id=1434524902]
 
@@ -15108,16 +15125,27 @@ transform = Transform3D(0.08026197, 0, -0.05964911, 0, 0.1, 0, 0.05964911, 0, 0.
 transform = Transform3D(0.093532056, 0, 0.035380136, 0, 0.1, 0, -0.035380136, 0, 0.093532056, 8.719362, 1.2020873, -2.2700996)
 
 [node name="Pistol_01" parent="PistolZone" unique_id=1802323769 instance=ExtResource("150_wvac1")]
-transform = Transform3D(-2.4618336e-09, 0.056320183, 0.056815814, -0.08, -3.496911e-09, -1.302701e-16, 2.483498e-09, -0.056815814, 0.056320183, 9.238715, 1.2122518, -2.5401206)
+transform = Transform3D(-2.4618336e-09, 0.056320183, 0.056815814, -0.08, -3.496911e-09, -1.302701e-16, 2.483498e-09, -0.056815814, 0.056320183, 9.238715, 1.1694021, -2.5401206)
 
 [node name="Pistol_02" parent="PistolZone" unique_id=1168860686 instance=ExtResource("151_xx4x2")]
-transform = Transform3D(-1.9029365e-09, -0.04353411, 0.09002656, 0.1, -4.371139e-09, 0, 3.935186e-09, 0.09002656, 0.04353411, 9.120656, 1.2070132, -2.1855366)
+transform = Transform3D(-1.9029365e-09, -0.04353411, 0.09002656, 0.1, -4.371139e-09, 0, 3.935186e-09, 0.09002656, 0.04353411, 9.120656, 1.1721781, -2.1855364)
 
 [node name="Pistol_03" parent="PistolZone" unique_id=670051509 instance=ExtResource("152_520xr")]
-transform = Transform3D(-2.7188882e-09, 0.06220091, -0.078301005, -0.1, -4.371139e-09, 0, -3.4226455e-09, 0.078301005, 0.06220091, 9.388794, 1.2224493, -1.7660726)
+transform = Transform3D(-2.7188882e-09, 0.06220091, -0.078301005, -0.1, -4.371139e-09, 0, -3.4226455e-09, 0.078301005, 0.06220091, 9.388794, 1.1935289, -1.7660728)
 
 [node name="Revolver_02" parent="PistolZone" unique_id=1890052047 instance=ExtResource("153_lgbu1")]
 transform = Transform3D(-4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, 0, 0, 0, 0.1, 9.07979, 1.1557255, -1.6989454)
+
+[node name="Area3D" type="Area3D" parent="PistolZone" unique_id=195866365]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 6.683904, 0, 2)
+script = ExtResource("172_5vtos")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PistolZone/Area3D" unique_id=1524818619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1610911, 1.0752093, -1.966125)
+shape = SubResource("BoxShape3D_fnds1")
+
+[node name="PromptLabel3D" type="Label3D" parent="PistolZone/Area3D" unique_id=851716888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.159931, 0.88470155, -2.005754)
 
 [node name="SMGZone" type="Node3D" parent="." unique_id=109740544]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4, 0, -3)
@@ -15141,10 +15169,10 @@ transform = Transform3D(-4.6362922e-09, -0.10606601, -0.10606601, 0.14999999, -6
 transform = Transform3D(-4.949911e-09, -0.11324077, 0.09836933, 0.14999999, -6.5567076e-09, 0, 4.2998596e-09, 0.09836933, 0.11324077, -10.731123, 1.2023963, -4.9978485)
 
 [node name="SubmachineGun_02" parent="SMGZone" unique_id=1212841705 instance=ExtResource("157_xdrpe")]
-transform = Transform3D(0, -0.14999999, 0, 0.14999999, 0, 0, 0, 0, 0.14999999, -9.697388, 1.200988, -3.9666026)
+transform = Transform3D(0, -0.14999999, 0, 0.14999999, 0, 0, 0, 0, 0.14999999, -9.697388, 1.1744467, -3.9666023)
 
 [node name="SubmachineGun_01" parent="SMGZone" unique_id=1206968739 instance=ExtResource("156_fnds1")]
-transform = Transform3D(-6.556708e-09, -0.14999999, 0, 0.14999999, -6.556708e-09, 0, 0, 0, 0.14999999, -10.364511, 1.2106671, -4.143811)
+transform = Transform3D(-6.556708e-09, -0.14999999, 0, 0.14999999, -6.556708e-09, 0, 0, 0, 0.14999999, -10.36451, 1.1631849, -4.143811)
 
 [node name="SmgAmmo_Box4" parent="SMGZone" unique_id=2066040909 instance=ExtResource("155_5vtos")]
 transform = Transform3D(0.071789555, 0, 0.06961509, 0, 0.1, 0, -0.06961509, 0, 0.071789555, -9.672638, 0.39410758, -4.864441)
@@ -15157,6 +15185,19 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -10.016023, 0.39410782,
 
 [node name="SmgAmmo_Box" parent="SMGZone" unique_id=89577319 instance=ExtResource("155_5vtos")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -9.733632, 0.39410782, -5.2219815)
+
+[node name="Area3D2" type="Area3D" parent="SMGZone" unique_id=1768838593]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -10.243237, 0, -5.0785904)
+script = ExtResource("172_5vtos")
+zone_type = "SMG"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SMGZone/Area3D2" unique_id=390396531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0183222, 0)
+shape = SubResource("BoxShape3D_5vtos")
+
+[node name="PromptLabel3D" type="Label3D" parent="SMGZone/Area3D2" unique_id=374880836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9682423, 0)
+billboard = 1
 
 [node name="SniperZone" type="Node3D" parent="." unique_id=2096812260]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -17, 0, -6)
@@ -15226,6 +15267,19 @@ transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -34,
 
 [node name="wooden_wall7" parent="SniperZone" unique_id=975950046 instance=ExtResource("136_xbrl3")]
 transform = Transform3D(-8.742278e-08, 0, -2, 0, 2, 0, 2, 0, -8.742278e-08, -34, 0, -10)
+
+[node name="Area3D3" type="Area3D" parent="SniperZone" unique_id=1450438440]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -35.498116, 0, -10.506346)
+script = ExtResource("172_5vtos")
+zone_type = "Sniper"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SniperZone/Area3D3" unique_id=763903713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20459366, 0.9845096, 0.44998932)
+shape = SubResource("BoxShape3D_xdrpe")
+
+[node name="PromptLabel3D" type="Label3D" parent="SniperZone/Area3D3" unique_id=665634701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0423913, 0)
+billboard = 1
 
 [node name="SGZone" type="Node3D" parent="." unique_id=752176533]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.1433468, 0, -19.301764)
@@ -15307,6 +15361,19 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.713306, 0, -25.396473)
 
 [node name="ground_planks8" parent="SGZone" unique_id=1405895646 instance=ExtResource("85_hmuwv")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -5.7133064, 0, -35.396473)
+
+[node name="Area3D" type="Area3D" parent="SGZone" unique_id=390837526]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -4.2819004, 0, -36.678562)
+script = ExtResource("172_5vtos")
+zone_type = "Shotgun"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SGZone/Area3D" unique_id=952151356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9996582, 0)
+shape = SubResource("BoxShape3D_swcdo")
+
+[node name="PromptLabel3D" type="Label3D" parent="SGZone/Area3D" unique_id=907398229]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46715713, 0.89101195, -0.4703064)
+billboard = 1
 
 [node name="ARZone" type="Node3D" parent="." unique_id=1196744712]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 21.229492, 0, 18.604015)
@@ -15412,6 +15479,19 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 39.541016, 0, 30.79197)
 
 [node name="ground_planks13" parent="ARZone" unique_id=2042714051 instance=ExtResource("85_hmuwv")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 27.541016, 0, 46.79197)
+
+[node name="Area3D" type="Area3D" parent="ARZone" unique_id=1060628920]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 41.119576, 0, 35.353806)
+script = ExtResource("172_5vtos")
+zone_type = "AR"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ARZone/Area3D" unique_id=975001494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0366672, -0.09968567)
+shape = SubResource("BoxShape3D_c6q86")
+
+[node name="PromptLabel3D" type="Label3D" parent="ARZone/Area3D" unique_id=1721343541]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0252804, -0.08743286)
+billboard = 1
 
 [node name="ResidentZone" type="Node3D" parent="." unique_id=949861616]
 
@@ -15926,3 +16006,6 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 mob_scene = ExtResource("129_mob1")
 spawn_height = 0.1
+
+[node name="Node3D" parent="." unique_id=964253810 instance=ExtResource("173_fnds1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.561563, 0.81816506, -20.675106)

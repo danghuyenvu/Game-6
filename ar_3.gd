@@ -29,6 +29,10 @@ func equip():
 func unequip():
 	super.unequip()
 
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	reserve_ammo = MAX_RESERVE
+	update_hud()
 
 func shoot():
 	if not equipped:

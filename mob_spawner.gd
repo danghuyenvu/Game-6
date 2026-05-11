@@ -7,14 +7,15 @@ extends Node3D
 @export var max_spawn_delay: float = 60.0
 @export var spawn_area_size: Vector3 = Vector3(108, 0, 108)
 @export var spawn_height: float = -0.5
-@export var min_distance_from_player: float = 30.0
-@export var max_attempts: int = 20
-@export var wave_spawn_window: float = 20.0  # seconds before queue is cleared
+@export var min_distance_from_player: float = 20.0
+@export var max_attempts: int = 15
+@export var wave_spawn_window: float = 20.0
+@export var wave_spread_time: float = 5.0
 
-const MAX_MOBS := 30
+const MAX_MOBS := 20
 
 var active_mobs := 0
-var spawn_queue: Array = []
+var spawn_queue: int = 0  # just a count, no array needed
 var rng := RandomNumberGenerator.new()
 var player: Node3D
 var player_pos := Vector3.ZERO
@@ -24,6 +25,7 @@ var _wave_window_timer: Timer
 var min_dist_sq: float
 var _is_spawning := false
 var debug_label: Label
+var _debug_update_timer: float = 0.0  # only update label every 0.5s
 
 
 func _ready() -> void:
@@ -32,20 +34,18 @@ func _ready() -> void:
 	parent_node = get_parent()
 	min_dist_sq = min_distance_from_player * min_distance_from_player
 
-	# Next wave timer — only starts after wave window closes
 	_timer = Timer.new()
 	_timer.one_shot = true
 	add_child(_timer)
 	_timer.timeout.connect(_on_wave_timer)
 
-	# Wave window timer — clears queue after 20s and triggers next wave delay
 	_wave_window_timer = Timer.new()
 	_wave_window_timer.one_shot = true
 	add_child(_wave_window_timer)
 	_wave_window_timer.timeout.connect(_on_wave_window_closed)
 
 	call_deferred("_setup_debug_label")
-	_on_wave_timer()  # start first wave immediately
+	_on_wave_timer()
 
 
 func _setup_debug_label() -> void:
@@ -56,23 +56,27 @@ func _setup_debug_label() -> void:
 	get_viewport().add_child(debug_label)
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_instance_valid(player):
 		player_pos = player.global_position
+
+	# Only update debug label every 0.5s — not every frame
 	if not is_instance_valid(debug_label):
 		return
+	_debug_update_timer -= delta
+	if _debug_update_timer > 0.0:
+		return
+	_debug_update_timer = 0.5
 	debug_label.text = "\n".join([
-		"mobs in tree: %d" % get_tree().get_nodes_in_group(&"mob").size(),
-		"active_mobs var: %d" % active_mobs,
-		"queue size: %d" % spawn_queue.size(),
-		"nav regions: %d" % NavigationServer3D.get_maps().size(),
+		"active_mobs: %d" % active_mobs,
+		"queue: %d" % spawn_queue,
 		"physics bodies: %d" % PhysicsServer3D.get_process_info(PhysicsServer3D.INFO_ACTIVE_OBJECTS),
 		"fps: %d" % Engine.get_frames_per_second(),
 		"physics ms: %.1f" % Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS),
 		"process ms: %.1f" % Performance.get_monitor(Performance.TIME_PROCESS),
 		"draw calls: %d" % Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
-		"wave window: %.1fs left" % _wave_window_timer.time_left,
-		"next wave in: %.1fs" % _timer.time_left,
+		"wave window: %.1fs" % _wave_window_timer.time_left,
+		"next wave: %.1fs" % _timer.time_left,
 	])
 
 
@@ -81,25 +85,15 @@ func _process(_delta: float) -> void:
 # -------------------------
 
 func _on_wave_timer() -> void:
-	# Sync real mob count before spawning
-	active_mobs = get_tree().get_nodes_in_group(&"mob").size()
-
-	for i in mobs_per_wave:
-		spawn_queue.append(1)
-
-	# Start the spawn window — queue clears after wave_spawn_window seconds
+	spawn_queue += mobs_per_wave
 	_wave_window_timer.start(wave_spawn_window)
-	_process_queue()
-	# Next wave timer does NOT start here — it starts in _on_wave_window_closed
+	if not _is_spawning:
+		_process_queue()
 
 
 func _on_wave_window_closed() -> void:
-	# Clear any unspawned mobs from this wave's queue
-	if spawn_queue.size() > 0:
-		spawn_queue.clear()
-		_is_spawning = false  # reset in case coroutine was mid-await
-
-	# Now schedule the next wave
+	spawn_queue = 0
+	_is_spawning = false
 	_schedule_next_wave()
 
 
@@ -108,17 +102,21 @@ func _schedule_next_wave() -> void:
 
 
 # -------------------------
-# SPAWN QUEUE — one mob per frame
+# SPAWN QUEUE — spread over wave_spread_time seconds
 # -------------------------
 
 func _process_queue() -> void:
 	if _is_spawning:
 		return
 	_is_spawning = true
-	while spawn_queue.size() > 0 and active_mobs < MAX_MOBS:
-		spawn_queue.pop_front()
+
+	var spawn_interval := wave_spread_time / maxf(mobs_per_wave, 1)
+
+	while spawn_queue > 0 and active_mobs < MAX_MOBS:
+		spawn_queue -= 1
 		_spawn_mob()
-		await get_tree().physics_frame
+		await get_tree().create_timer(spawn_interval).timeout
+
 	_is_spawning = false
 
 
@@ -129,16 +127,32 @@ func _process_queue() -> void:
 func _spawn_mob() -> void:
 	if mob_scene == null:
 		return
+
+	var spawn_pos := _get_valid_spawn_position()
+
+	var space := get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(
+		spawn_pos + Vector3(0, 10, 0),
+		spawn_pos + Vector3(0, -20, 0)
+	)
+	query.collision_mask = 1
+	var result := space.intersect_ray(query)
+	if not result:
+		return  # no ground, skip — don't increment active_mobs
+
+	spawn_pos = result.position + Vector3(0, 0.5, 0)
+
 	var mob := mob_scene.instantiate()
-	mob.global_position = _get_valid_spawn_position()
 	parent_node.add_child(mob)
+	mob.global_position = spawn_pos
 	active_mobs += 1
 	mob.tree_exiting.connect(_on_mob_removed)
 
 
 func _on_mob_removed() -> void:
-	active_mobs = max(active_mobs - 1, 0)
-	_process_queue.call_deferred()
+	active_mobs = maxi(active_mobs - 1, 0)
+	# Don't restart the spawn coroutine here — it runs on wave timer only
+	# This prevents 20 simultaneous coroutines when a wave dies at once
 
 
 # -------------------------

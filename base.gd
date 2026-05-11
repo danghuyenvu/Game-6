@@ -8,6 +8,10 @@ const FIRE_RATE := 0.15
 
 var current_ammo := MAG_SIZE
 
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	update_hud()
+
 
 # ----------------------------
 # SHOOT

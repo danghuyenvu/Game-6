@@ -61,12 +61,12 @@ var freeflying : bool = false
 
 var jump_held := false
 var nearby_items: Array = []
+var nearby_ammo_zones: Array = []
+var nearby_weapon_box: Node = null
 var nearby_shop: Node = null
 
 func grab_item(item) -> void:
 	item.apply_effect(self)
-	item.queue_free()
-	print("Grabbed", item.item_type)
 
 func _ready() -> void:
 	check_input_mappings()
@@ -101,13 +101,28 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_2):
 		weapon_manager.equip_secondary()
 		
-	if Input.is_key_pressed(KEY_E):
+	if Input.is_action_just_pressed("interact"):
+
 		if nearby_shop != null:
 			nearby_shop.open_menu()
-		else:
-			if nearby_items.size() > 0:
-				var item = nearby_items.pop_front()
-				grab_item(item)
+
+		elif nearby_ammo_zones.size() > 0:
+			nearby_ammo_zones[0].apply_effect(self)
+
+		elif nearby_weapon_box != null:
+			nearby_weapon_box.roll_weapon()
+
+		elif nearby_items.size() > 0:
+			var item = nearby_items.pop_front()
+			grab_item(item)
+			health += 15
+			if hud and hud.has_method("update_health"):
+				hud.update_health(health)
+
+				
+	if Input.is_action_just_pressed("interact_secondary"):
+		if is_instance_valid(nearby_weapon_box):
+			nearby_weapon_box.try_take_weapon(self)
 	
 	# Look around
 	if mouse_captured and event is InputEventMouseMotion:
@@ -308,3 +323,15 @@ func die():
 
 	# optional reset/reload
 	get_tree().reload_current_scene()
+	
+func refill_ammo(ammo_type: String) -> void:
+	var primary = weapon_manager.primary_weapon
+	var secondary = weapon_manager.secondary_weapon
+	if is_instance_valid(primary) and primary.weapon_type == ammo_type:
+		primary.refill()
+	if is_instance_valid(secondary) and secondary.weapon_type == ammo_type:
+		secondary.refill()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	pass

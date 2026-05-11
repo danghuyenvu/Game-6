@@ -15,6 +15,7 @@ var equipped := false
 @export var weapon_damage := 15
 @export var weapon_range := 200.0
 
+@export_enum("Pistol", "SMG", "Sniper", "Shotgun", "AR") var weapon_type: String = "Pistol"
 
 var crosshair
 
@@ -33,6 +34,9 @@ func equip():
 func unequip():
 	equipped = false
 	visible = false
+	
+func refill() -> void:
+	pass
 
 
 # ----------------------------

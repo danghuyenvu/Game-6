@@ -20,6 +20,11 @@ func _ready():
 	weapon_id = "pump"
 	weapon_damage = 20
 	weapon_range = 300
+	
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	reserve_ammo = MAX_RESERVE
+	update_hud()
 
 
 # ----------------------------

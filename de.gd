@@ -18,6 +18,9 @@ func _ready():
 
 	call_deferred("update_hud")
 
+func refill() -> void:
+	current_ammo = MAG_SIZE
+	update_hud()
 
 # ----------------------------
 # SHOOT

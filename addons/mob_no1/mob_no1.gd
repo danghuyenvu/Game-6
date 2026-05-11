@@ -52,10 +52,21 @@ const CLIPS := {
 # --- Stagger / LOD ---
 static var _mob_counter: int = 0
 const UPDATE_INTERVAL: int = 3
+# move_and_slide runs every other physics frame — halves collision cost
+const SLIDE_INTERVAL: int = 2
 
 var _mob_index: int = 0
 var _frame_offset: int = 0
+var _slide_offset: int = 0
 var _is_visible: bool = true
+
+# --- Aggro stagger ---
+var _aggro_delay: float = 0.0
+var _aggro_delay_timer: float = 0.0
+var _nav_ready: bool = true
+
+var _nav_path_timer: float = 0.0
+const NAV_PATH_INTERVAL: float = 0.5
 
 # --- State ---
 var health: float
@@ -66,6 +77,7 @@ var _attack_cooldown_left: float = 0.0
 var _attack_has_hit := false
 var _death_timer: float = 0.0
 var _dead_physics_stopped := false
+var _cached_dist: float = 999.0
 
 @onready var animation_player: AnimationPlayer = _resolve_animation_player()
 @onready var navigation_agent: NavigationAgent3D = get_node_or_null(navigation_agent_path)
@@ -78,12 +90,14 @@ func _ready() -> void:
 	_mob_index = _mob_counter
 	_mob_counter += 1
 	_frame_offset = _mob_index % UPDATE_INTERVAL
+	_slide_offset = _mob_index % SLIDE_INTERVAL
+	_aggro_delay = (_mob_index % 20) * 0.15
 
 	if use_navigation and not navigation_agent:
 		navigation_agent = NavigationAgent3D.new()
 		navigation_agent.name = "NavigationAgent3D"
-		navigation_agent.radius = 0.6
-		navigation_agent.height = 2.5
+		navigation_agent.radius = 0.5
+		navigation_agent.height = 2.0
 		navigation_agent.avoidance_enabled = false
 		add_child(navigation_agent)
 
@@ -93,6 +107,7 @@ func _ready() -> void:
 	vis.screen_entered.connect(_on_screen_entered)
 	vis.screen_exited.connect(_on_screen_exited)
 
+	set_process(false)
 	_play_state(State.IDLE, true)
 
 
@@ -120,6 +135,11 @@ func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * gravity_multiplier * delta
 	_attack_cooldown_left = maxf(_attack_cooldown_left - delta, 0.0)
 
+	if not _nav_ready:
+		_aggro_delay_timer -= delta
+		if _aggro_delay_timer <= 0.0:
+			_nav_ready = true
+
 	var run_ai := (Engine.get_physics_frames() % UPDATE_INTERVAL) == _frame_offset
 	if run_ai:
 		_state_time += delta * UPDATE_INTERVAL
@@ -132,15 +152,20 @@ func _physics_process(delta: float) -> void:
 		else:
 			target = MobManager.cached_target
 
+		if is_instance_valid(target):
+			_cached_dist = global_position.distance_to(target.global_position)
+		else:
+			_cached_dist = 999.0
+
 		_update_state()
 		_process_animation_state()
 
-	# Early out — if IDLE and no target, only apply gravity, skip movement logic
+	# IDLE on floor with no target — skip everything
 	if state == State.IDLE and not is_instance_valid(target):
 		if is_on_floor():
 			velocity.y = -0.5
-		else:
-			move_and_slide()
+			return
+		move_and_slide()
 		return
 
 	match state:
@@ -152,12 +177,15 @@ func _physics_process(delta: float) -> void:
 		_:
 			_stop_horizontal_movement(delta)
 
-	move_and_slide()
-
-	if is_on_floor() and velocity.y < 0.0:
-		velocity.y = -0.5
-	if is_on_wall():
-		velocity.y = maxf(velocity.y, step_height * 6.0)
+	# Only call move_and_slide every SLIDE_INTERVAL frames
+	# Staggered per mob so not all slide on same frame
+	var run_slide := (Engine.get_physics_frames() % SLIDE_INTERVAL) == _slide_offset
+	if run_slide and velocity.length_squared() > 0.01:
+		move_and_slide()
+		if is_on_floor() and velocity.y < 0.0:
+			velocity.y = -0.5
+		if is_on_wall():
+			velocity.y = maxf(velocity.y, step_height * 6.0)
 
 
 func _update_state() -> void:
@@ -169,18 +197,20 @@ func _update_state() -> void:
 	if not is_instance_valid(target):
 		if state != State.IDLE:
 			_play_state(State.IDLE)
-		# No target — nothing to do, sleep until next AI tick
 		return
 
-	var distance := global_position.distance_to(target.global_position)
+	var distance := _cached_dist
 
 	if distance > lose_aggro_range:
 		target = null
+		_cached_dist = 999.0
 		_play_state(State.IDLE)
 		return
 
 	if distance > attack_range and distance <= aggro_range:
 		if state not in [State.CHASE, State.CRAWLING]:
+			_nav_ready = false
+			_aggro_delay_timer = _aggro_delay
 			_play_state(_move_state())
 		return
 
@@ -199,18 +229,21 @@ func _chase_target(delta: float) -> void:
 		return
 
 	var speed: float = crawl_speed if state == State.CRAWLING else move_speed
-	var current_dist := global_position.distance_to(target.global_position)
 
-	if current_dist <= attack_range * 0.85:
+	if _cached_dist <= attack_range * 0.85:
 		_stop_horizontal_movement(delta)
 		return
 
 	if use_navigation and navigation_agent:
-		var want_avoidance := _is_visible and current_dist < 20.0
+		var want_avoidance := _is_visible and _cached_dist < 20.0
 		if navigation_agent.avoidance_enabled != want_avoidance:
 			navigation_agent.avoidance_enabled = want_avoidance
 
-		navigation_agent.target_position = target.global_position
+		_nav_path_timer -= delta
+		if _nav_ready and _nav_path_timer <= 0.0:
+			_nav_path_timer = NAV_PATH_INTERVAL + _aggro_delay * 0.1
+			MobManager.request_nav_path(navigation_agent, target.global_position)
+
 		var next_pos := navigation_agent.get_next_path_position()
 		var direction := next_pos - global_position
 		direction.y = 0.0
@@ -294,7 +327,7 @@ func _process_animation_state() -> void:
 			_play_state(_move_state() if is_instance_valid(target) else State.IDLE)
 		State.DEAD:
 			animation_player.pause()
-			animation_player.seek(clip["end"], true)
+			animation_player.seek(CLIPS[State.DEAD]["end"], true)
 
 
 func _process_unanimated_state() -> void:
@@ -319,7 +352,7 @@ func _process_attack_hit() -> void:
 	if current_time < hit_time:
 		return
 	_attack_has_hit = true
-	if global_position.distance_to(target.global_position) > attack_range + 0.8:
+	if _cached_dist > attack_range + 0.8:
 		return
 	if target.has_method("take_damage"):
 		target.take_damage(attack_damage)
@@ -345,60 +378,35 @@ func _die() -> void:
 	health = 0.0
 	velocity = Vector3.ZERO
 	target = null
+	_cached_dist = 999.0
 
-	# Shut down navigation immediately
 	if navigation_agent:
-		navigation_agent.avoidance_enabled = false
+		navigation_agent.queue_free()
+		navigation_agent = null
 
 	_play_state(State.DEAD, true)
 
-	# Disable collision immediately so physics engine ignores this body
 	for child in get_children():
 		if child is CollisionShape3D:
 			child.disabled = true
 
-	# Stop AI processing — dead mobs only need _process_dead
-	set_physics_process(false)
-	_start_death_timer()
-
-
-func _start_death_timer() -> void:
-	# Re-enable physics process just for the death sequence
-	set_physics_process(true)
+	set_process(false)
+	# Physics stays on for death anim, timer handles despawn
+	var t := get_tree().create_timer(maxf(despawn_after_death, 0.1))
+	t.timeout.connect(queue_free)
 
 
 func _process_dead(delta: float) -> void:
-	_death_timer += delta
-
-	# Run animation check until animation finishes
 	if not _dead_physics_stopped:
 		_process_animation_state()
-		# Once death anim is done, go fully inert — no more move_and_slide
 		if animation_player and not animation_player.is_playing():
 			_dead_physics_stopped = true
 			velocity = Vector3.ZERO
 			set_physics_process(false)
-			# Re-enable a lightweight timer-only process via _process instead
-			set_process(true)
-		elif not animation_player:
-			_dead_physics_stopped = true
-			set_physics_process(false)
-			set_process(true)
-
-	# Despawn
-	var despawn_time := maxf(despawn_after_death, 0.1)
-	if _death_timer >= despawn_time:
-		queue_free()
 
 
-# Lightweight fallback — only runs after physics is stopped
-func _process(delta: float) -> void:
-	if state != State.DEAD:
-		return
-	_death_timer += delta
-	var despawn_time := maxf(despawn_after_death, 0.1)
-	if _death_timer >= despawn_time:
-		queue_free()
+func _process(_delta: float) -> void:
+	pass  # despawn handled by create_timer in _die
 
 
 func _move_state() -> State:

@@ -10,8 +10,7 @@ height = 1.6905518
 height = 6.0
 radius = 35.0
 
-[node name="MobNo1" type="CharacterBody3D" unique_id=1991734936 groups=["mob"]]
-collision_layer = 4
+[node name="MobNo1" type="RigidBody3D" unique_id=664067768 groups=["mob"]]
 script = ExtResource("1_ai")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1914877872]
