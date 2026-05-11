@@ -34,18 +34,23 @@ func _on_timer_timeout():
 func spawn_mob():
 	var mob = mob_scene.instantiate()
 	
-	# Đặt vị trí quái tại vị trí Spawner (có thể cộng thêm độ lệch ngẫu nhiên)
-	mob.global_position = global_position
-	
+	mob.global_position = global_position + Vector3(
+		randf_range(-1.5, 1.5),
+		randf_range(0, 5.0), 
+		randf_range(-1.5, 1.5)
+	)
+	mob.global_rotation.y = randf_range(0, TAU)
 	# QUAN TRỌNG: Tên node phải DUY NHẤT để đồng bộ đúng giữa các máy
 	mob.name = "Mob_" + str(Time.get_ticks_msec()) + "_" + str(randi())
 	
-	# Kết nối tín hiệu để biết khi nào quái chết thì giảm đếm
-	mob.tree_exited.connect(func(): current_mob_count -= 1)
-	
-	# Add child với tham số 'true' để đồng bộ tên node qua mạng
 	add_child(mob, true)
+	
 	current_mob_count += 1
+
+	mob.tree_exited.connect(func(): 
+		if is_instance_valid(self): 
+			current_mob_count -= 1
+	)
 
 func _is_server_context() -> bool:
 	var peer := multiplayer.multiplayer_peer

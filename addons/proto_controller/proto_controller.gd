@@ -51,6 +51,7 @@ func grab_item(item) -> void:
 
 func _ready() -> void:
 	var peer_id = name.to_int() 
+	add_to_group(&"player")
 	if peer_id > 0:
 		set_multiplayer_authority(peer_id)
 	

@@ -73,6 +73,9 @@ var _last_repath_time: float = 0.0
 func _ready() -> void:
 	health = max_health
 	add_to_group(&"mob")
+	# Quan trọng: Đảm bảo authority đúng
+	if multiplayer.is_server():
+		set_multiplayer_authority(1)  # Server authority
 	_find_target()
 	
 	if use_navigation and not navigation_agent:
@@ -89,7 +92,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_process_animation_state()
-	if not _is_server_context():
+	if is_on_floor() and velocity.y < 0:
+		velocity.y = 0.0   # thay vì -0.5
+	if not multiplayer.is_server():
 		return
 	if state == State.DEAD:
 		_process_dead(delta)

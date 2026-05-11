@@ -10,8 +10,10 @@ extends Node3D
 var current_mob_count: int = 0
 
 func _ready():
-	# CỰC KỲ QUAN TRỌNG: Chỉ Server mới chạy logic đếm giờ và sinh quái
-	if not _is_server_context():
+	
+	# === MULTIPLAYER SETUP ===
+	
+	if not multiplayer.is_server():
 		return
 
 	# 1. Thiết lập MultiplayerSpawner
@@ -35,17 +37,26 @@ func spawn_mob():
 	var mob = mob_scene.instantiate()
 	
 	# Đặt vị trí quái tại vị trí Spawner (có thể cộng thêm độ lệch ngẫu nhiên)
-	mob.global_position = global_position
+	mob.global_position = global_position + Vector3(
+		randf_range(-2.0, 5.0),
+		3.5,   # Tăng chiều cao spawn cho Boss (to hơn Mob)
+		randf_range(-2.0, 5.0)
+	)
 	
 	# QUAN TRỌNG: Tên node phải DUY NHẤT để đồng bộ đúng giữa các máy
 	mob.name = "Mob_" + str(Time.get_ticks_msec()) + "_" + str(randi())
 	
 	# Kết nối tín hiệu để biết khi nào quái chết thì giảm đếm
-	mob.tree_exited.connect(func(): current_mob_count -= 1)
+	mob.tree_exited.connect(func():
+		if is_instance_valid(self):
+			current_mob_count -= 1
+	)
 	
 	# Add child với tham số 'true' để đồng bộ tên node qua mạng
 	add_child(mob, true)
 	current_mob_count += 1
+	if mob.has_method("_play_state"):
+		print("[JugSpawner] Boss spawned successfully at ", mob.global_position)
 
 func _is_server_context() -> bool:
 	var peer := multiplayer.multiplayer_peer

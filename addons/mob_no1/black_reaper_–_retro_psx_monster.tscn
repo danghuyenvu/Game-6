@@ -30,6 +30,27 @@ properties/4/replication_mode = 1
 
 [node name="MobNo1" type="CharacterBody3D" unique_id=954073975 groups=["mob"]]
 script = ExtResource("1_ai")
+player_group = null
+target_path = null
+aggro_range = null
+lose_aggro_range = null
+attack_range = null
+move_speed = null
+crawl_speed = null
+turn_speed = null
+gravity_multiplier = null
+step_height = null
+use_navigation = null
+navigation_agent_path = null
+max_health = null
+attack_damage = null
+attack_hit_at = null
+attack_cooldown = null
+crawl_under_health_ratio = null
+despawn_after_death = null
+animation_player_path = null
+animation_name = null
+debug_logs = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1914877872]
 transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 0.5533081, 0)

@@ -92,6 +92,10 @@ var _nav:  NavigationAgent3D
 func _ready() -> void:
 	health = max_health
 	add_to_group(&"boss")
+	if multiplayer.is_server():
+		set_multiplayer_authority(1)
+	else:
+		set_multiplayer_authority(multiplayer.get_unique_id())
 	_anim = _find_anim_player(self)
 	_nav  = get_node_or_null("NavigationAgent3D")
 	_find_target()
@@ -111,7 +115,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * gravity_multiplier * delta
 	else:
 		if velocity.y < 0.0:
-			velocity.y = -0.5
+			velocity.y = 0
 
 	_attack_cooldown_left = maxf(_attack_cooldown_left - delta, 0.0)
 	_state_time += delta
